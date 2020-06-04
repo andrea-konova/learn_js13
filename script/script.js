@@ -7,4 +7,4 @@ let period;
 
 alert('Это текст первого урока');
 
-console.log(mission);
+console.log('Это второе сообщение первого урока');
