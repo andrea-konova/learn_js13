@@ -1,9 +1,9 @@
-let money = 720;
-let income = 'Second job';
+const money = 720;
+const income = 'Second job';
 let addExpenses = 'Rent, Food, Gasoline, Phone';
-let deposit = true;
-let mission = 20000;
-let period = 12;
+const deposit = true;
+const mission = 20000;
+const period = 12;
 
 console.log(typeof money);
 console.log(typeof income);
