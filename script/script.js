@@ -27,11 +27,11 @@ console.log(addExpenses);
 
 console.log('Бюджет на месяц ' + budgetMonth);
 
-let missionCompleted = Math.ceil(mission / budgetMonth);
+const missionCompleted = Math.ceil(mission / budgetMonth);
 
 console.log('Цель будет достигнута за: ' + missionCompleted + ' месяцев');
 
-let budgetDay = Math.floor(budgetMonth / 30);
+const budgetDay = Math.floor(budgetMonth / 30);
 console.log('Бюджет на день: ' + budgetDay);
 
 if (budgetDay >= 1200) {
