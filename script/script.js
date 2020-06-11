@@ -9,7 +9,7 @@ let money;
 const income = 'Second job';
 let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
 const deposit = confirm('Есть ли у вас депозит в банке?');
-const mission = 20000;
+const mission = 1500000;
 const period = 12;
 
 const start = function() {
@@ -32,7 +32,7 @@ showTypeOf(deposit);
 console.log(addExpenses.length);
 
 console.log('Период равен ' + period + ' месяцев');
-console.log('Цель заработать ' + mission + ' долларов');
+console.log('Цель заработать ' + mission + ' рублей');
 
 console.log(addExpenses.toLowerCase().split(', '));
 
@@ -43,15 +43,15 @@ const getExpensesMonth = function() {
   let sum = 0;
 
   for (let i = 0; i < 2; i++) {
-    let sum1 = 0;
-    expenses[i]= prompt('Введите обязательную статью расходов?');
+    let sum1;
+    expenses[i] = prompt('Введите обязательную статью расходов?');
     
     do {
-      sum1 = +prompt('Во сколько это обойдется?');
+      sum1 = prompt('Во сколько это обойдется?');
     }
     while(!isNumber(sum1)) 
 
-    sum += sum1;
+    sum += +sum1;
   }
 
   return sum;
