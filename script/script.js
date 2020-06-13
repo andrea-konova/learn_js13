@@ -9,16 +9,16 @@ let money;
 
 const start = function() {
   do {
-    money = prompt('Ваш месячный доход?');
+    money = +prompt('Ваш месячный доход?');
   }
   while(!isNumber(money)) 
 };
 
 start();
 
-let appData = {
+const appData = {
   income: {},
-  addImcome: [],
+  addIncome: [],
   expenses: {},
   addExpenses: [],
   deposit: false,
@@ -29,11 +29,9 @@ let appData = {
   budgetMonth: 0,
   expensesMonth: 0,
   asking: function() {
-    let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+    const addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
       appData.addExpenses = addExpenses.toLowerCase().split(', ');
       appData.deposit = confirm('Есть ли у вас депозит в банке?');
-
-      // let sum = 0;
 
       for (let i = 0; i < 2; i++) {
 
@@ -47,13 +45,10 @@ let appData = {
         }
         while(!isNumber(costExpenses)) 
 
-        // sum += +costExpenses;
-
         appData.expenses[nameExpenses] = +costExpenses;
 
       }
 
-      // return sum;
   },
   // возвращает сумму всех обязательных расходов за месяц
   getExpensesMonth: function() {
@@ -69,7 +64,7 @@ let appData = {
   // Возвращает накопления за месяц (Доходы минус расходы)
   getBudget: function() {
     appData.budgetMonth = money - appData.expensesMonth;
-    appData.budgetDay = appData.budgetMonth / 30
+    appData.budgetDay = Math.floor(appData.budgetMonth / 30);
   },
   // Подсчитывает за какой период будет достигнута цель
   getTargetMonth: function() {
@@ -90,24 +85,7 @@ let appData = {
 console.log(appData);
 appData.asking();
 
-
-console.log(appData.addExpenses.length);
-
-console.log('Период равен ' + appData.period + ' месяцев');
-console.log('Цель заработать ' + appData.mission + ' рублей');
-
-console.log();
-
-// const expensesAmonth = appData.getExpensesMonth();
-
-console.log('Расходы за месяц: ' + appData.getExpensesMonth());
-
-
-console.log('Накопления за месяц: ' + appData.getBudget());
-
-// const accumulatedMonth = appData.getBudget();
-
-
+console.log(appData.getExpensesMonth());
 
 if (appData.getTargetMonth() < 0){
   console.log('Цель не будет достигнута');
@@ -115,10 +93,5 @@ if (appData.getTargetMonth() < 0){
   console.log('Цель будет достигнута за: ' 
 + appData.getTargetMonth());
 }
-
-const budgetDay = Math.floor(accumulatedMonth / 30);
-console.log('Бюджет на день: ' + appData.budgetDay);
-
-
 
 appData.getStatusIncome();
