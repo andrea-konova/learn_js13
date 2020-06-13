@@ -5,16 +5,16 @@ const isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-let money;
-
 const start = function() {
-  do {
-    money = +prompt('Ваш месячный доход?');
-  }
-  while(!isNumber(money)) 
+
+  let money = prompt('Ваш месячный доход?');
+  
+  while(!isNumber(money)) {
+    money = prompt('Ваш месячный доход?');
+  } 
+  return +money
 };
 
-start();
 
 const appData = {
   income: {},
@@ -24,7 +24,7 @@ const appData = {
   deposit: false,
   mission: 1500000,
   period: 12,
-  budget: money,
+  budget: start(),
   budgetDay: 0,
   budgetMonth: 0,
   expensesMonth: 0,
@@ -63,12 +63,12 @@ const appData = {
   },
   // Возвращает накопления за месяц (Доходы минус расходы)
   getBudget: function() {
-    appData.budgetMonth = money - appData.expensesMonth;
+    appData.budgetMonth = appData.budget - appData.expensesMonth;
     appData.budgetDay = Math.floor(appData.budgetMonth / 30);
   },
   // Подсчитывает за какой период будет достигнута цель
   getTargetMonth: function() {
-    return Math.ceil(appData.mission / appData.getBudget())
+    return Math.ceil(appData.mission / appData.budgetMonth)
   },
   getStatusIncome: function() {
     if (appData.budgetDay >= 1200) {
@@ -84,8 +84,10 @@ const appData = {
 };
 console.log(appData);
 appData.asking();
+appData.getExpensesMonth();
+appData.getBudget();
 
-console.log(appData.getExpensesMonth());
+console.log('Расходы за месяц: ' + appData.expensesMonth);
 
 if (appData.getTargetMonth() < 0){
   console.log('Цель не будет достигнута');
@@ -95,3 +97,7 @@ if (appData.getTargetMonth() < 0){
 }
 
 appData.getStatusIncome();
+
+for (let key in appData) {
+  console.log(`Наша программа включает в себя данные:  ${key} ${appData[key]}`);
+}
