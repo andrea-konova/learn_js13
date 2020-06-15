@@ -136,3 +136,7 @@ for (let key in appData) {
 
 appData.getInfoDeposit();
 console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSaveMoney());
+
+let str = appData.addExpenses.map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+
+console.log(String(str));
