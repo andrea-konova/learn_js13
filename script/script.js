@@ -34,6 +34,7 @@ const appData = {
 
     if (confirm('Есть ли у вас дополнительный источник заработка?')) {
       let itemIncome = prompt('Какой у вас дополнительный заработок?', 'Таксую');
+      
       let costIncome;
       do {
         costIncome = prompt('Сколько в месяц вы на этом зарабатываете?', '10000');
@@ -137,6 +138,6 @@ for (let key in appData) {
 appData.getInfoDeposit();
 console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSaveMoney());
 
-let str = appData.addExpenses.map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+let str = appData.addExpenses.map(i => i[0].toUpperCase() + i.substring(1)).join(', ');
 
 console.log(String(str));
