@@ -34,10 +34,9 @@ const appData = {
 
     if (confirm('Есть ли у вас дополнительный источник заработка?')) {
       let itemIncome = prompt('Какой у вас дополнительный заработок?', 'Таксую');
-      while (itemIncome === '' || itemIncome === null || itemIncome.trim() === '') {
+      while (itemIncome === null || itemIncome.trim() === '' || !isNaN(itemIncome)) {
         itemIncome = prompt('Какой у вас дополнительный заработок?', 'Таксую');
       }
-      console.log(typeof itemIncome);
 
       let costIncome;
       do {
@@ -58,6 +57,9 @@ const appData = {
           costExpenses;
 
         nameExpenses = prompt('Введите обязательную статью расходов?', 'Аренда');
+        while (nameExpenses === null || nameExpenses.trim() === '' || !isNaN(nameExpenses)) {
+          nameExpenses = prompt('Введите обязательную статью расходов?', 'Аренда');
+        }
         
         do {
           costExpenses = prompt('Во сколько это обойдется?', '12000');
