@@ -11,14 +11,14 @@ const calculate = document.getElementById('start'),
   additionalExpensesValue = document.getElementsByClassName('additional_expenses-value'),
   incomePeriodValue = document.getElementsByClassName('income_period-value'),
   targetMonthValue = document.getElementsByClassName('target_month-value'),
-  salaryAmount = document.querySelector('salary-amount'),
-  incomeTitle = document.querySelector('income-title'),
-  incomeAmount = document.querySelector('income-amount'),
-  expensesTitle = document.querySelector('expenses-title'),
-  expensesAmount = document.querySelector('expenses-amount'),
-  additionalExpensesItem = document.querySelector('additional_expenses-item'),
-  targetAmount = document.querySelector('target-amount'),
-  periodSelect = document.querySelector('period-select');
+  salaryAmount = document.querySelector('.salary-amount'),
+  incomeTitle = document.querySelector('.income-title'),
+  incomeAmount = document.querySelector('.income-amount'),
+  expensesTitle = document.querySelector('.expenses-title'),
+  expensesAmount = document.querySelector('.expenses-amount'),
+  additionalExpensesItem = document.querySelector('.additional_expenses-item'),
+  targetAmount = document.querySelector('.target-amount'),
+  periodSelect = document.querySelector('.period-select');
 
 console.log(calculate);
 console.log(plusIncome);
