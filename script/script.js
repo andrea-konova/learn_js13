@@ -34,6 +34,11 @@ const appData = {
 
     if (confirm('Есть ли у вас дополнительный источник заработка?')) {
       let itemIncome = prompt('Какой у вас дополнительный заработок?', 'Таксую');
+      while (itemIncome === '' || itemIncome === null || itemIncome.trim() === '') {
+        itemIncome = prompt('Какой у вас дополнительный заработок?', 'Таксую');
+      }
+      console.log(typeof itemIncome);
+
       let costIncome;
       do {
         costIncome = prompt('Сколько в месяц вы на этом зарабатываете?', '10000');
@@ -125,7 +130,7 @@ if (appData.getTargetMonth() < 0){
   console.log('Цель не будет достигнута');
 } else {
   console.log('Цель будет достигнута за: ' 
-+ appData.getTargetMonth());
++ appData.getTargetMonth() + ' месяцев');
 }
 
 appData.getStatusIncome();
