@@ -47,7 +47,12 @@ const appData = {
       appData.income[itemIncome] = +costIncome;
     }
 
-    const addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Еда, аренда');
+    let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Одежда, ресторан');
+
+      while (addExpenses === null || addExpenses.trim() === '' || !isNaN(addExpenses)) {
+        addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Одежда, ресторан');
+      }
+
       appData.addExpenses = addExpenses.toLowerCase().split(', ');
       appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
