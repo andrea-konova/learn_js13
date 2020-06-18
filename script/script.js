@@ -21,7 +21,8 @@ const start = document.getElementById('start'),
   periodSelect = document.querySelector('.period-select');
 
 let expensesItems = document.querySelectorAll('.expenses-items'),
-  incomeItems = document.querySelectorAll('.income-items');
+  incomeItems = document.querySelectorAll('.income-items'),
+  periodAmount = document.querySelector('.period-amount');
 
 
 // Проверяет значение на число
@@ -69,7 +70,12 @@ const appData = {
     additionalExpensesValue.value = appData.addExpenses.join(', ');
     additionalIncomeValue.value = appData.addIncome.join(', ');
     targetMonthValue.value = appData.getTargetMonth();
+
     incomePeriodValue.value = appData.calcPeriod();
+    periodSelect.addEventListener('change', function() {
+      incomePeriodValue.value = appData.calcPeriod();
+    })
+
   },
   addExpensesBlock: function() {
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -177,10 +183,10 @@ start.addEventListener('click', appData.start);
 
 plusExpenses.addEventListener('click', appData.addExpensesBlock);
 plusIncome.addEventListener('click', appData.addIncomeBlock);
+periodSelect.addEventListener('input', function() {
+  periodAmount.textContent = periodSelect.value;
+});
 
-// console.log(appData);
-
-// console.log('Расходы за месяц: ' + appData.expensesMonth);
 
 // if (appData.getTargetMonth() < 0){
 //   console.log('Цель не будет достигнута');
