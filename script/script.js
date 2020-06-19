@@ -46,10 +46,10 @@ const appData = {
   expensesMonth: 0,
   start: function() {
 
-    if (salaryAmount.value === '') {
-      alert('Ошибка, поле "Месячный доход" должно быть заполнено!');
-      return;
-    }
+    // if (salaryAmount.value === '') {
+    //   alert('Ошибка, поле "Месячный доход" должно быть заполнено!');
+    //   return;
+    // }
 
     appData.budget = +salaryAmount.value;
 
@@ -178,6 +178,16 @@ const appData = {
     return appData.budgetMonth * periodSelect.value;
   }
 };
+
+const checkParams = function() {
+  if (salaryAmount.value === '') {
+    start.removeAttribute('disabled');
+  } else if (salaryAmount.value !== '') {
+    start.removeAttribute('disabled');
+  }
+};
+
+salaryAmount.addEventListener('input', checkParams)
 
 start.addEventListener('click', appData.start);
 
