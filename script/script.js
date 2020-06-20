@@ -44,6 +44,14 @@ const appData = {
   incomeMonth: 0,
   expensesMonth: 0,
   start: function() {
+    appData.income = {};
+    appData.addIncome =[];
+    appData.expenses = {};
+    appData.addExpenses = [];
+    appData.budgetDay = 0;
+    appData.budgetMonth = 0;
+    appData.incomeMonth = 0;
+    appData.expensesMonth = 0;
 
     appData.budget = +salaryAmount.value;
 
@@ -173,10 +181,8 @@ const appData = {
 const checkParams = function() {
   if (salaryAmount.value !== '') {
     start.removeAttribute('disabled');
-    console.log('Кнопка активна');
   } else if (salaryAmount.value === '') {
     start.setAttribute('disabled', 'disabled');
-    console.log('Кнопка неактивна');
   }
 };
 
@@ -189,5 +195,3 @@ plusIncome.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', function() {
   periodAmount.textContent = periodSelect.value;
 });
-
-appData.getInfoDeposit();
