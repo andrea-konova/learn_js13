@@ -188,7 +188,7 @@ const checkParams = function() {
 
 salaryAmount.addEventListener('input', checkParams)
 
-start.addEventListener('click', appData.start);
+start.addEventListener('click', appData.start.bind(appData));
 
 plusExpenses.addEventListener('click', appData.addExpensesBlock);
 plusIncome.addEventListener('click', appData.addIncomeBlock);
