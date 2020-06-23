@@ -1,6 +1,7 @@
 'use strict';
 
 const start = document.getElementById('start'),
+  cancel = document.getElementById('cancel'),
   plusIncome = document.getElementsByTagName('button')[0],
   plusExpenses = document.getElementsByTagName('button')[1],
   depositCheck = document.querySelector('#deposit-check'),
@@ -19,7 +20,8 @@ const start = document.getElementById('start'),
   additionalExpensesItem = document.querySelector('.additional_expenses-item'),
   targetAmount = document.querySelector('.target-amount'),
   periodSelect = document.querySelector('.period-select'),
-  periodAmount = document.querySelector('.period-amount');
+  periodAmount = document.querySelector('.period-amount'),
+  incomeAmount = document.querySelector('.income-amount');
 
 let expensesItems = document.querySelectorAll('.expenses-items'),
   incomeItems = document.querySelectorAll('.income-items');
@@ -73,9 +75,9 @@ const appData = {
     additionalIncomeValue.value = this.addIncome.join(', ');
     targetMonthValue.value = this.getTargetMonth();
 
-    incomePeriodValue.value = this.calcPeriod();
+    incomePeriodValue.value = appData.calcPeriod();
     periodSelect.addEventListener('input', function() {
-      incomePeriodValue.value = this.calcPeriod();
+      incomePeriodValue.value = appData.calcPeriod();
     })
 
   },
@@ -188,7 +190,33 @@ const checkParams = function() {
 
 salaryAmount.addEventListener('input', checkParams)
 
-start.addEventListener('click', appData.start.bind(appData));
+// start.addEventListener('click', appData.start.bind(appData));
+
+const blockInput = function() {
+  salaryAmount.setAttribute('disabled', 'disabled');
+  incomeTitle.setAttribute('disabled', 'disabled');
+  incomeAmount.setAttribute('disabled', 'disabled');
+  additionalIncomeItem[0].setAttribute('disabled', 'disabled');
+  additionalIncomeItem[1].setAttribute('disabled', 'disabled');
+  expensesTitle.setAttribute('disabled', 'disabled');
+  expensesAmount.setAttribute('disabled', 'disabled');
+  additionalExpensesItem.setAttribute('disabled', 'disabled');
+  targetAmount.setAttribute('disabled', 'disabled');
+}
+
+start.addEventListener('click', function() {
+  appData.start();
+  blockInput();
+  start.style.display = "none";
+  cancel.style.display = "block";
+});
+
+const reset = function() {
+  return appData;
+}
+
+cancel.addEventListener('click', reset);
+
 
 plusExpenses.addEventListener('click', appData.addExpensesBlock.bind(appData));
 plusIncome.addEventListener('click', appData.addIncomeBlock.bind(appData));
