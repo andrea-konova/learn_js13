@@ -93,9 +93,10 @@ const appData = {
     additionalIncomeValue.value = this.addIncome.join(', ');
     targetMonthValue.value = this.getTargetMonth();
 
-    incomePeriodValue.value = appData.calcPeriod();
+    incomePeriodValue.value = this.calcPeriod();
+    const _this = this;
     periodSelect.addEventListener('input', function() {
-      incomePeriodValue.value = appData.calcPeriod();
+      incomePeriodValue.value = _this.calcPeriod();
     })
 
   },
@@ -116,38 +117,42 @@ const appData = {
     }
   },
   getExpenses: function() {
+    const _this = this;
     expensesItems.forEach(function(item) {
       const itemExpenses = item.querySelector('.expenses-title').value;
       const cashExpenses = item.querySelector('.expenses-amount').value;
       if (itemExpenses !== '' && cashExpenses !== '') {
-        appData.expenses[itemExpenses] = +cashExpenses;
+        _this.expenses[itemExpenses] = +cashExpenses;
       }
     })
   },
   getIncome: function() {
+    const _this = this;
     incomeItems.forEach(function(item) {
       const itemIncome = item.querySelector('.income-title').value;
       const cashIncome = item.querySelector('.income-amount').value;
       if (itemIncome !== '' && cashIncome !== '') {
-        appData.income[itemIncome] = +cashIncome;
-        appData.incomeMonth += +cashIncome;
+        _this.income[itemIncome] = +cashIncome;
+        _this.incomeMonth += +cashIncome;
       }
     })
   },
   getAddExpenses: function() {
     const addExpenses = additionalExpensesItem.value.split(',');
+    const _this = this;
     addExpenses.forEach(function(item) {
       item = item.trim();
       if (item !== '') {
-        appData.addExpenses.push(item);
+        _this.addExpenses.push(item);
       }
     })
   },
   getAddIncome: function() {
+    const _this = this;
     additionalIncomeItem.forEach(function(item) {
       const itemValue = item.value.trim();
       if (itemValue !== '') {
-        appData.addIncome.push(itemValue);
+        _this.addIncome.push(itemValue);
       }
     })
   },
@@ -166,7 +171,7 @@ const appData = {
   },
   // Подсчитывает за какой период будет достигнута цель
   getTargetMonth: function() {
-    return Math.ceil(targetAmount.value / appData.budgetMonth)
+    return Math.ceil(targetAmount.value / this.budgetMonth);
   },
   getStatusIncome: function() {
     if (this.budgetDay >= 1200) {
