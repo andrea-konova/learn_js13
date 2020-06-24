@@ -211,7 +211,7 @@ const appData = {
     this.incomeMonth = 0;
     this.expensesMonth = 0;
     
-    let dataInputAll = document.querySelectorAll('.data input[type = text]'),
+    const dataInputAll = document.querySelectorAll('.data input[type = text]'),
       resultInputAll = document.querySelectorAll('.result input[type = text]');
 
     dataInputAll.forEach(function(item) {
