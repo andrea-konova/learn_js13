@@ -94,10 +94,9 @@ const appData = {
     targetMonthValue.value = this.getTargetMonth();
 
     incomePeriodValue.value = this.calcPeriod();
-    const _this = this;
-    periodSelect.addEventListener('input', function() {
-      incomePeriodValue.value = _this.calcPeriod();
-    })
+      periodSelect.addEventListener('input', function() {
+      incomePeriodValue.value = this.calcPeriod();
+    }, this)
 
   },
   addExpensesBlock: function() {
@@ -117,44 +116,40 @@ const appData = {
     }
   },
   getExpenses: function() {
-    const _this = this;
     expensesItems.forEach(function(item) {
       const itemExpenses = item.querySelector('.expenses-title').value;
       const cashExpenses = item.querySelector('.expenses-amount').value;
       if (itemExpenses !== '' && cashExpenses !== '') {
-        _this.expenses[itemExpenses] = +cashExpenses;
+        this.expenses[itemExpenses] = +cashExpenses;
       }
-    })
+    }, this)
   },
   getIncome: function() {
-    const _this = this;
     incomeItems.forEach(function(item) {
       const itemIncome = item.querySelector('.income-title').value;
       const cashIncome = item.querySelector('.income-amount').value;
       if (itemIncome !== '' && cashIncome !== '') {
-        _this.income[itemIncome] = +cashIncome;
-        _this.incomeMonth += +cashIncome;
+        this.income[itemIncome] = +cashIncome;
+        this.incomeMonth += +cashIncome;
       }
-    })
+    }, this)
   },
   getAddExpenses: function() {
     const addExpenses = additionalExpensesItem.value.split(',');
-    const _this = this;
     addExpenses.forEach(function(item) {
       item = item.trim();
       if (item !== '') {
-        _this.addExpenses.push(item);
+        this.addExpenses.push(item);
       }
-    })
+    }, this)
   },
   getAddIncome: function() {
-    const _this = this;
     additionalIncomeItem.forEach(function(item) {
       const itemValue = item.value.trim();
       if (itemValue !== '') {
-        _this.addIncome.push(itemValue);
+        this.addIncome.push(itemValue);
       }
-    })
+    }, this)
   },
   // возвращает сумму всех обязательных расходов за месяц
   getExpensesMonth: function() {
