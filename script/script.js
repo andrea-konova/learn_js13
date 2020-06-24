@@ -45,9 +45,16 @@ const appData = {
   budgetMonth: 0,
   incomeMonth: 0,
   expensesMonth: 0,
+  checkParams: function() {
+    if (salaryAmount.value !== '') {
+      start.removeAttribute('disabled');
+    } else if (salaryAmount.value === '') {
+      start.setAttribute('disabled', 'true');
+    }
+  },
   start: function() {
     this.income = {};
-    this.addIncome =[];
+    this.addIncome = [];
     this.expenses = {};
     this.addExpenses = [];
     this.budgetDay = 0;
@@ -65,6 +72,17 @@ const appData = {
   
     this.getBudget();
     this.showResult();
+
+    let allInput = document.querySelectorAll('.data input[type = text]');
+    allInput.forEach(function(item) {
+      item.setAttribute('disabled', 'true');
+    });
+
+    start.style.display = "none";
+    cancel.style.display = "block";
+
+    plusIncome.setAttribute('disabled', 'true');
+    plusExpenses.setAttribute('disabled', 'true');
   },
   showResult: function() {
     budgetMonthValue.value = this.budgetMonth;
@@ -177,45 +195,59 @@ const appData = {
   },
   calcPeriod: function() {
     return this.budgetMonth * periodSelect.value;
+  },
+  reset: function() {
+    this.income = {};
+    this.addIncome = [];
+    this.expenses = {};
+    this.addExpenses = [];
+    this.deposit = false;
+    this.percentDeposit = 0;
+    this.moneyDeposit = 0;
+    this.mission = 1500000;
+    this.budget = 0;
+    this.budgetDay = 0;
+    this.budgetMonth = 0;
+    this.incomeMonth = 0;
+    this.expensesMonth = 0;
+    
+    let dataInputAll = document.querySelectorAll('.data input[type = text]'),
+      resultInputAll = document.querySelectorAll('.result input[type = text]');
+
+    dataInputAll.forEach(function(item) {
+      item.value = '';
+      item.removeAttribute('disabled');
+
+      periodSelect.value = '1';
+      periodAmount.textContent = periodSelect.value;
+    });
+
+    resultInputAll.forEach(function(item) {
+      item.value = '';
+    });
+
+    for (let i = 1; i < expensesItems.length; i++) {
+      expensesItems[i].parentNode.removeChild(expensesItems[i]);
+      plusExpenses.style.display = 'block'; 
+    }
+
+    for (let i = 1; i < incomeItems.length; i++) {
+      incomeItems[i].parentNode.removeChild(incomeItems[i]);
+      plusIncome.style.display = 'block'; 
+    }
+
+    start.style.display = "block";
+    cancel.style.display = "none";
+    plusIncome.removeAttribute('disabled');
+    plusExpenses.removeAttribute('disabled');
   }
 };
 
-const checkParams = function() {
-  if (salaryAmount.value !== '') {
-    start.removeAttribute('disabled');
-  } else if (salaryAmount.value === '') {
-    start.setAttribute('disabled', 'disabled');
-  }
-};
+salaryAmount.addEventListener('input', appData.checkParams.bind(appData))
 
-salaryAmount.addEventListener('input', checkParams)
+start.addEventListener('click', appData.start.bind(appData));
 
-// start.addEventListener('click', appData.start.bind(appData));
-
-const blockInput = function() {
-  salaryAmount.setAttribute('disabled', 'disabled');
-  incomeTitle.setAttribute('disabled', 'disabled');
-  incomeAmount.setAttribute('disabled', 'disabled');
-  additionalIncomeItem[0].setAttribute('disabled', 'disabled');
-  additionalIncomeItem[1].setAttribute('disabled', 'disabled');
-  expensesTitle.setAttribute('disabled', 'disabled');
-  expensesAmount.setAttribute('disabled', 'disabled');
-  additionalExpensesItem.setAttribute('disabled', 'disabled');
-  targetAmount.setAttribute('disabled', 'disabled');
-}
-
-start.addEventListener('click', function() {
-  appData.start();
-  blockInput();
-  start.style.display = "none";
-  cancel.style.display = "block";
-});
-
-const reset = function() {
-  return appData;
-}
-
-cancel.addEventListener('click', reset);
+cancel.addEventListener('click', appData.reset.bind(appData));
 
 
 plusExpenses.addEventListener('click', appData.addExpensesBlock.bind(appData));
