@@ -251,6 +251,7 @@ AppData.prototype.reset = function() {
 
   start.style.display = "block";
   cancel.style.display = "none";
+  start.setAttribute('disabled', 'true');
   plusIncome.removeAttribute('disabled');
   plusExpenses.removeAttribute('disabled');
 };
