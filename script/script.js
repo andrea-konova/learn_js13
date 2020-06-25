@@ -76,7 +76,7 @@ AppData.prototype.start = function() {
   this.showResult();
 
   let allInput = document.querySelectorAll('.data input[type = text]');
-  allInput.forEach(function(item) {
+  allInput.forEach((item) => {
     item.setAttribute('disabled', 'true');
   });
 
@@ -96,10 +96,10 @@ AppData.prototype.showResult = function() {
   additionalIncomeValue.value = this.addIncome.join(', ');
   targetMonthValue.value = this.getTargetMonth();
 
-  incomePeriodValue.value = appData.calcPeriod();
-  periodSelect.addEventListener('input', function() {
+  incomePeriodValue.value = this.calcPeriod();
+  periodSelect.addEventListener('input', () => {
     incomePeriodValue.value = this.calcPeriod();
-  }, this)
+  })
 
 };
 
@@ -122,43 +122,43 @@ AppData.prototype.addIncomeBlock = function() {
 };
 
 AppData.prototype.getExpenses = function() {
-  expensesItems.forEach(function(item) {
+  expensesItems.forEach((item) => {
     const itemExpenses = item.querySelector('.expenses-title').value;
     const cashExpenses = item.querySelector('.expenses-amount').value;
     if (itemExpenses !== '' && cashExpenses !== '') {
       this.expenses[itemExpenses] = +cashExpenses;
     }
-  }, this)
+  })
 };
 
 AppData.prototype.getIncome = function() {
-  incomeItems.forEach(function(item) {
+  incomeItems.forEach((item) => {
     const itemIncome = item.querySelector('.income-title').value;
     const cashIncome = item.querySelector('.income-amount').value;
     if (itemIncome !== '' && cashIncome !== '') {
       this.income[itemIncome] = +cashIncome;
       this.incomeMonth += +cashIncome;
     }
-  }, this)
+  })
 };
 
 AppData.prototype.getAddExpenses = function() {
   const addExpenses = additionalExpensesItem.value.split(',');
-  addExpenses.forEach(function(item) {
+  addExpenses.forEach((item) => {
     item = item.trim();
     if (item !== '') {
       this.addExpenses.push(item);
     }
-  }, this)
+  })
 };
 
 AppData.prototype.getAddIncome = function() {
-  additionalIncomeItem.forEach(function(item) {
+  additionalIncomeItem.forEach((item) => {
     const itemValue = item.value.trim();
     if (itemValue !== '') {
       this.addIncome.push(itemValue);
     }
-  }, this)
+  })
 };
 // возвращает сумму всех обязательных расходов за месяц
 AppData.prototype.getExpensesMonth = function() {
@@ -227,7 +227,7 @@ AppData.prototype.reset = function() {
   const dataInputAll = document.querySelectorAll('.data input[type = text]'),
     resultInputAll = document.querySelectorAll('.result input[type = text]');
 
-  dataInputAll.forEach(function(item) {
+  dataInputAll.forEach((item) => {
     item.value = '';
     item.removeAttribute('disabled');
 
@@ -235,7 +235,7 @@ AppData.prototype.reset = function() {
     periodAmount.textContent = periodSelect.value;
   });
 
-  resultInputAll.forEach(function(item) {
+  resultInputAll.forEach((item) => {
     item.value = '';
   });
 
@@ -262,7 +262,7 @@ AppData.prototype.eventsListeners = function() {
   cancel.addEventListener('click', this.reset.bind(this));
   plusExpenses.addEventListener('click', this.addExpensesBlock.bind(this));
   plusIncome.addEventListener('click', this.addIncomeBlock.bind(this));
-  periodSelect.addEventListener('input', function() {
+  periodSelect.addEventListener('input', () => {
     periodAmount.textContent = periodSelect.value;
   });
 };
