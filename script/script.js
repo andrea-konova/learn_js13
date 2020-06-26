@@ -203,6 +203,15 @@ class AppData {
     if (valueSelect === 'other') {
       // домашка
       depositPercent.style.display = 'inline-block';
+      depositPercent.addEventListener('change', () => {
+         if (depositPercent.value > 0 && depositPercent.value <= 100) {
+          start.removeAttribute('disabled');
+        } else {
+          alert('Введите корректное значение в поле проценты');
+          start.setAttribute('disabled', 'true');
+        }
+      })
+      
     } else {
       depositPercent.value = valueSelect;
     }
