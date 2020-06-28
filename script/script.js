@@ -217,7 +217,7 @@ class AppData {
       depositPercent.value = valueSelect;
       depositPercent.style.display = 'none';
     }
-  }
+  };
 
   calcPeriod() {
     return this.budgetMonth * periodSelect.value;
@@ -228,7 +228,7 @@ class AppData {
       depositBank.style.display = 'inline-block';
       depositAmount.style.display = 'inline-block';
       this.deposit = true;
-      depositBank.addEventListener('change', this.changePercent)
+      depositBank.addEventListener('change', this.changePercent);
     } else {
       depositBank.style.display = 'none';
       depositAmount.style.display = 'none';
@@ -236,7 +236,7 @@ class AppData {
       depositBank.value = ''; 
       depositAmount.value = ''; 
       this.deposit = false;
-      depositBank.removeEventListener('change', this.changePercent)
+      depositBank.removeEventListener('change', this.changePercent);
     }
   }
 
