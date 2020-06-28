@@ -204,16 +204,18 @@ class AppData {
       // домашка
       depositPercent.style.display = 'inline-block';
       depositPercent.addEventListener('change', () => {
-         if (depositPercent.value > 0 && depositPercent.value <= 100) {
+        if (depositPercent.value > 0 && depositPercent.value <= 100 && salaryAmount.value !== '') {
           start.removeAttribute('disabled');
-        } else {
+          console.log('Разблокированно');
+        } else if (!(depositPercent.value > 0 && depositPercent.value <= 100)) {
+          console.log('Блокировка');
           alert('Введите корректное значение в поле проценты');
           start.setAttribute('disabled', 'true');
         }
       })
-      
     } else {
       depositPercent.value = valueSelect;
+      depositPercent.style.display = 'none';
     }
   }
 
@@ -230,6 +232,7 @@ class AppData {
     } else {
       depositBank.style.display = 'none';
       depositAmount.style.display = 'none';
+      depositPercent.style.display = 'none';
       depositBank.value = ''; 
       depositAmount.value = ''; 
       this.deposit = false;
@@ -282,6 +285,11 @@ class AppData {
     start.setAttribute('disabled', 'true');
     plusIncome.removeAttribute('disabled');
     plusExpenses.removeAttribute('disabled');
+    depositCheck.checked = false;
+    depositBank.value = '';
+    depositBank.style.display = 'none';
+    depositAmount.style.display = 'none';
+    depositPercent.style.display = 'none';
   };
 
   eventsListeners() {
