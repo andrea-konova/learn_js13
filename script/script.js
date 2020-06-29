@@ -48,7 +48,8 @@ class AppData {
     this.budgetMonth = 0;
     this.incomeMonth = 0;
     this.expensesMonth = 0;
-  };
+    this.isOtherDeposit = false;
+  }
 
   checkParams() {
     if (salaryAmount.value !== '') {
@@ -56,7 +57,7 @@ class AppData {
     } else if (salaryAmount.value === '') {
       start.setAttribute('disabled', 'true');
     }
-  };
+  }
 
   start() {
     this.income = {};
@@ -90,7 +91,7 @@ class AppData {
   
     plusIncome.setAttribute('disabled', 'true');
     plusExpenses.setAttribute('disabled', 'true');
-  };
+  }
 
   showResult() {
     budgetMonthValue.value = this.budgetMonth;
@@ -103,7 +104,7 @@ class AppData {
     periodSelect.addEventListener('input', () => {
       incomePeriodValue.value = this.calcPeriod();
     })
-  };
+  }
 
   addExpensesBlock() {
     const cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -112,7 +113,7 @@ class AppData {
     if (expensesItems.length === 3) {
       plusExpenses.style.display = 'none'; 
     }
-  };
+  }
 
   addIncomeBlock() {
     const cloneIncomeItems = incomeItems[0].cloneNode(true);
@@ -121,7 +122,7 @@ class AppData {
     if (incomeItems.length === 3) {
       plusIncome.style.display = 'none'; 
     }
-  };
+  }
 
   getExpenses() {
     expensesItems.forEach((item) => {
@@ -131,7 +132,7 @@ class AppData {
         this.expenses[itemExpenses] = +cashExpenses;
       }
     })
-  };
+  }
 
   getIncome() {
     incomeItems.forEach((item) => {
@@ -142,7 +143,7 @@ class AppData {
         this.incomeMonth += +cashIncome;
       }
     })
-  };
+  }
 
   getAddExpenses() {
     const addExpenses = additionalExpensesItem.value.split(',');
@@ -152,7 +153,7 @@ class AppData {
         this.addExpenses.push(item);
       }
     })
-  };
+  }
 
   getAddIncome() {
     additionalIncomeItem.forEach((item) => {
@@ -161,23 +162,23 @@ class AppData {
         this.addIncome.push(itemValue);
       }
     })
-  };
+  }
 
   getExpensesMonth() {
     for (let nameExpenses in this.expenses) {
       this.expensesMonth += this.expenses[nameExpenses];
     }
-  };
+  }
 
   getBudget() {
     const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
     this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
     this.budgetDay = Math.floor(this.budgetMonth / 30);
-  };
+  }
 
   getTargetMonth() {
     return Math.ceil(targetAmount.value / this.budgetMonth)
-  };
+  }
 
   getStatusIncome() {
     if (this.budgetDay >= 1200) {
@@ -196,32 +197,35 @@ class AppData {
         this.percentDeposit = depositPercent.value;
         this.moneyDeposit = depositAmount.value;
     }
-  };
+  }
 
   changePercent() {
     const valueSelect = this.value;
-    if (valueSelect === 'other') {
-      // домашка
+    if (valueSelect === 'other' && !this.isOtherDeposit) {
+      this.isOtherDeposit = true;
       depositPercent.style.display = 'inline-block';
-      depositPercent.addEventListener('change', () => {
+      depositPercent.addEventListener('change', function checkPercent()  {
         if (depositPercent.value > 0 && depositPercent.value <= 100 && salaryAmount.value !== '') {
           start.removeAttribute('disabled');
-          console.log('Разблокированно');
         } else if (!(depositPercent.value > 0 && depositPercent.value <= 100)) {
-          console.log('Блокировка');
           alert('Введите корректное значение в поле проценты');
           start.setAttribute('disabled', 'true');
         }
       })
+    } 
+    if (valueSelect === 'other') {
+      depositPercent.style.display = 'inline-block';
     } else {
       depositPercent.value = valueSelect;
       depositPercent.style.display = 'none';
     }
-  };
+
+
+  }
 
   calcPeriod() {
     return this.budgetMonth * periodSelect.value;
-  };
+  }
 
   depositHandler() {
     if (depositCheck.checked) {
@@ -290,7 +294,7 @@ class AppData {
     depositBank.style.display = 'none';
     depositAmount.style.display = 'none';
     depositPercent.style.display = 'none';
-  };
+  }
 
   eventsListeners() {
     salaryAmount.addEventListener('input', this.checkParams.bind(this));
@@ -303,8 +307,8 @@ class AppData {
     });
 
     depositCheck.addEventListener('change', this.depositHandler.bind(this))
-  };
-};
+  }
+}
 
 const appData = new AppData();
 appData.eventsListeners();
