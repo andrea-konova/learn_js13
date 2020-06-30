@@ -50,6 +50,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	}
 
-	countTimer('1 jule 2020');
+	countTimer('2 jule 2020');
 
 });
