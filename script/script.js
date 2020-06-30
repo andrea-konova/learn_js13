@@ -36,8 +36,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		const timer = getTimeRemaining();
 
 		if (timer.timeRemaining > 0) {
-			setInterval(upDateClock, 1000);
+			const timerId = setInterval(upDateClock, 1000);
 			console.log('Вызов setInterval');
+			if (timer.timeRemaining <= 0) {
+				clearInterval(timerId);
+			}
 		} else if (timer.timeRemaining <= 0) {
 			timerHours.textContent = '00';
 			timerMinutes.textContent = '00';
@@ -47,6 +50,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	}
 
-	countTimer('1 june 2020');
+	countTimer('1 jule 2020');
 
 });
