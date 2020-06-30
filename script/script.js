@@ -21,18 +21,32 @@ window.addEventListener('DOMContentLoaded', () => {
 			const timer = getTimeRemaining();
 
 			timerHours.textContent = timer.hours;
+			if (timer.hours < 10) {
+				timerHours.textContent = '0' + timer.hours;
+			}
 			timerMinutes.textContent = timer.minutes;
+			if (timer.minutes < 10) {
+				timerMinutes.textContent = '0' + timer.minutes;
+			}
 			timerSeconds.textContent = timer.seconds;
-
-			if (timer.timeRemaining > 0) {
-				setTimeout(upDateClock, 1000);
+			if (timer.seconds < 10) {
+				timerSeconds.textContent = '0' + timer.seconds;
 			}
 		}
+		const timer = getTimeRemaining();
 
-		upDateClock();
+		if (timer.timeRemaining > 0) {
+			setInterval(upDateClock, 1000);
+			console.log('Вызов setInterval');
+		} else if (timer.timeRemaining <= 0) {
+			timerHours.textContent = '00';
+			timerMinutes.textContent = '00';
+			timerSeconds.textContent = '00';
+		}
+
+
 	}
 
-	countTimer('1 jule 2020');
-	// setInterval(countTimer, 1000, '1 jule 2020');
+	countTimer('1 june 2020');
 
 });
