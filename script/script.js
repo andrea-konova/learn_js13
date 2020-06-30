@@ -48,8 +48,14 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 
-	}
+	};
 
-	countTimer('2 jule 2020');
+  countTimer('2 jule 2020');
+  
+  const togleModalMenu = () => {
+
+  };
+
+  togleModalMenu();
 
 });
