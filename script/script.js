@@ -55,39 +55,39 @@ window.addEventListener('DOMContentLoaded', () => {
 	// menu
 	const toggleModalMenu = () => {
 		const btnMenu = document.querySelector('.menu'),
-      menu = document.querySelector('menu'),
-      closeBtn = document.querySelector('.close-btn'),
-      menuItems = menu.querySelectorAll('ul>li');
+			menu = document.querySelector('menu'),
+			closeBtn = document.querySelector('.close-btn'),
+			menuItems = menu.querySelectorAll('ul>li');
 
-    const handlerMenu = () => {
-      menu.classList.toggle('active-menu');
-    };
+		const handlerMenu = () => {
+			menu.classList.toggle('active-menu');
+		};
 
 		btnMenu.addEventListener('click', handlerMenu);
-    closeBtn.addEventListener('click', handlerMenu);
+		closeBtn.addEventListener('click', handlerMenu);
 
-    menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+		menuItems.forEach(elem => elem.addEventListener('click', handlerMenu));
 	};
 
-  toggleModalMenu();
-  
-  // popup
-  const togglePopUp = () => {
-    const popup = document.querySelector('.popup'),
-      popupBtn = document.querySelectorAll('.popup-btn'),
-      popupClose = document.querySelector('.popup-close');
+	toggleModalMenu();
 
-    popupBtn.forEach((elem) => {
-      elem.addEventListener('click', () => {
-        popup.style.display = 'block';
-      });
-    });
+	// popup
+	const togglePopUp = () => {
+		const popup = document.querySelector('.popup'),
+			popupBtn = document.querySelectorAll('.popup-btn'),
+			popupClose = document.querySelector('.popup-close');
 
-    popupClose.addEventListener('click', () => {
-      popup.style.display = 'none';
-    });
-  };
+		popupBtn.forEach(elem => {
+			elem.addEventListener('click', () => {
+				popup.style.display = 'block';
+			});
+		});
 
-  togglePopUp();
+		popupClose.addEventListener('click', () => {
+			popup.style.display = 'none';
+		});
+	};
+
+	togglePopUp();
 
 });
