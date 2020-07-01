@@ -2,12 +2,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	'use srtrict';
 
 	// timer
-	function countTimer(deadline) {
+	const countTimer = (deadline) => {
 		const timerHours = document.querySelector('#timer-hours'),
 			timerMinutes = document.querySelector('#timer-minutes'),
 			timerSeconds = document.querySelector('#timer-seconds');
 
-		function getTimeRemaining() {
+		const getTimeRemaining = () => {
 			const dateStop = new Date(deadline).getTime(),
 				dateNow = new Date().getTime(),
 				timeRemaining = (dateStop - dateNow) / 1000,
@@ -15,42 +15,45 @@ window.addEventListener('DOMContentLoaded', () => {
 				minutes = Math.floor((timeRemaining / 60) % 60),
 				hours = Math.floor(timeRemaining / 60 / 60);
 			return { timeRemaining, hours, minutes, seconds };
-		}
+    };
+    
+    const addZero = (num) => {
+      if (num < 10) {
+				return '0' + num;
+      }
+      return num;
+    };
 
-		function upDateClock() {
+		const upDateClock = () => {
 			const timer = getTimeRemaining();
 
-			timerHours.textContent = timer.hours;
-			if (timer.hours < 10) {
-				timerHours.textContent = '0' + timer.hours;
-			}
-			timerMinutes.textContent = timer.minutes;
-			if (timer.minutes < 10) {
-				timerMinutes.textContent = '0' + timer.minutes;
-			}
-			timerSeconds.textContent = timer.seconds;
-			if (timer.seconds < 10) {
-				timerSeconds.textContent = '0' + timer.seconds;
-			}
-		}
+			timerHours.textContent = addZero(timer.hours);
+			timerMinutes.textContent = addZero(timer.minutes);
+			timerSeconds.textContent = addZero(timer.seconds);
+
+      if (timer.timeRemaining <= 0) {
+        clearInterval(upDateClock);
+      }
+    };
+    
 		const timer = getTimeRemaining();
 
 		if (timer.timeRemaining > 0) {
-			const timerId = setInterval(upDateClock, 1000);
-			console.log('Вызов setInterval');
-			if (timer.timeRemaining <= 0) {
-				clearInterval(timerId);
-			}
-		} else if (timer.timeRemaining <= 0) {
-			timerHours.textContent = '00';
-			timerMinutes.textContent = '00';
-			timerSeconds.textContent = '00';
-		}
+			let timerId = setInterval(upDateClock, 1000);
+      console.log('Вызов setInterval');
+      if (timer.timeRemaining <= 0) {
+        clearInterval(timerId);
+      }
+    }  
+    
+    //  else if (timer.timeRemaining <= 0) {
+		// 	timerHours.textContent = '00';
+		// 	timerMinutes.textContent = '00';
+		// 	timerSeconds.textContent = '00';
+		// }
+	};
 
-
-	}
-
-	countTimer('2 jule 2020');
+	countTimer('3 jule 2020');
 
 	// menu
 	const toggleModalMenu = () => {
@@ -88,7 +91,6 @@ window.addEventListener('DOMContentLoaded', () => {
 			} else {
 				cancelAnimationFrame(popupInterval);
 			}
-			console.log(count);
 		};
 
 		popupBtn.forEach(elem => {
