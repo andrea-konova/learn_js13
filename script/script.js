@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
 	'use srtrict';
 
-	// Timer
+	// timer
 	function countTimer(deadline) {
 		const timerHours = document.querySelector('#timer-hours'),
 			timerMinutes = document.querySelector('#timer-minutes'),
@@ -48,14 +48,25 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 
+	}
+
+	countTimer('2 jule 2020');
+
+	// menu
+	const togleModalMenu = () => {
+		const btnMenu = document.querySelector('.menu'),
+			menu = document.querySelector('menu');
+
+		btnMenu.addEventListener('click', () => {
+			if (!menu.style.transform || menu.style.transform === `translate(-100%)`) {
+				menu.style.transform = `translate(0)`;
+			} else {
+				menu.style.transform = `translate(-100%)`;
+			}
+
+		});
 	};
 
-  countTimer('2 jule 2020');
-  
-  const togleModalMenu = () => {
-
-  };
-
-  togleModalMenu();
+	togleModalMenu();
 
 });
