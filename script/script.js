@@ -33,7 +33,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			if (timer.timeRemaining <= 0) {
 				clearInterval(upDateClock);
-				console.log('Очистка setInterval');
 				timerHours.textContent = '00';
 				timerMinutes.textContent = '00';
 				timerSeconds.textContent = '00';
@@ -41,7 +40,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		};
 
 		setInterval(upDateClock, 1000);
-		console.log('Вызов setInterval');
 	};
 
 	countTimer('3 jule 2020');
@@ -77,7 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		const popupAnimate = () => {
 			popupInterval = requestAnimationFrame(popupAnimate);
 			count++;
-			if (count < 38) {
+			if (count <= 38 && document.documentElement.clientWidth > 768) {
 				popupContent.style.left = count + '%';
 			} else {
 				cancelAnimationFrame(popupInterval);
@@ -86,18 +84,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		popupBtn.forEach(elem => {
 			elem.addEventListener('click', () => {
-				popup.style.display = 'block';
-				popupInterval = requestAnimationFrame(popupAnimate);
+        popup.style.display = 'block';
+        popupInterval = requestAnimationFrame(popupAnimate);
 			});
 		});
 
 		popupClose.addEventListener('click', () => {
-			popup.style.display = 'none';
-			return count = 0;
+      popup.style.display = 'none';
+      return count = 0;
 		});
 
 	};
 
-	togglePopUp();
+  togglePopUp();
+  
+
 
 });
