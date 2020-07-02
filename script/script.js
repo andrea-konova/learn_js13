@@ -99,22 +99,38 @@ window.addEventListener('DOMContentLoaded', () => {
 	togglePopUp();
 
 	// page scroll
-	const menu = document.querySelector('menu'),
-		menuItems = menu.querySelectorAll('a[href*="#"]');
+	const pageScroll = () => {
+		const menu = document.querySelector('menu'),
+			menuItems = menu.querySelectorAll('a[href*="#"]'),
+			btnDown = document.querySelector('a[href*="#"]');
 
-	menuItems.forEach(item => {
-		item.addEventListener('click', e => {
+		menuItems.forEach(item => {
+			item.addEventListener('click', e => {
+				e.preventDefault();
+
+				const menuId = item.getAttribute('href').substring(1);
+
+				document.getElementById(menuId).scrollIntoView({
+					behavior: 'smooth',
+					block: 'start'
+				});
+
+			});
+		});
+
+		btnDown.addEventListener('click', e => {
 			e.preventDefault();
 
-			const blockId = item.getAttribute('href').substring(1);
+			const btnDownId = btnDown.getAttribute('href').substring(1);
 
-			document.getElementById(blockId).scrollIntoView({
+			document.getElementById(btnDownId).scrollIntoView({
 				behavior: 'smooth',
 				block: 'start'
 			});
-
 		});
-	});
+	};
+
+	pageScroll();
 
 
 });
