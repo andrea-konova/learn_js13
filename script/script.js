@@ -110,10 +110,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 				const menuId = item.getAttribute('href').substring(1);
 
-				document.getElementById(menuId).scrollIntoView({
-					behavior: 'smooth',
-					block: 'start'
-				});
+				if (menuId !== 'close') {
+					document.getElementById(menuId).scrollIntoView({
+						behavior: 'smooth',
+						block: 'start'
+					});
+				}
 
 			});
 		});
