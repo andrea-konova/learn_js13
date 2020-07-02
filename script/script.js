@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	countTimer('3 jule 2020');
 
 	// menu
-	const toggleModalMenu = () => {
+	const toggleMenu = () => {
 		const btnMenu = document.querySelector('.menu'),
 			menu = document.querySelector('menu'),
 			closeBtn = document.querySelector('.close-btn'),
@@ -61,7 +61,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		menuItems.forEach(elem => elem.addEventListener('click', handlerMenu));
 	};
 
-	toggleModalMenu();
+	toggleMenu();
 
 	// popup
 	const togglePopUp = () => {
@@ -120,10 +120,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 				const menuId = item.getAttribute('href').substring(1);
 
-				document.getElementById(menuId).scrollIntoView({
-					behavior: 'smooth',
-					block: 'start'
-				});
+				if (menuId !== 'close') {
+					document.getElementById(menuId).scrollIntoView({
+						behavior: 'smooth',
+						block: 'start'
+					});
+				}
 
 			});
 		});
