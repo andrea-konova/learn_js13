@@ -84,20 +84,37 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		popupBtn.forEach(elem => {
 			elem.addEventListener('click', () => {
-        popup.style.display = 'block';
-        popupInterval = requestAnimationFrame(popupAnimate);
+				popup.style.display = 'block';
+				popupInterval = requestAnimationFrame(popupAnimate);
 			});
 		});
 
 		popupClose.addEventListener('click', () => {
-      popup.style.display = 'none';
-      return count = 0;
+			popup.style.display = 'none';
+			return count = 0;
 		});
 
 	};
 
-  togglePopUp();
-  
+	togglePopUp();
+
+	// page scroll
+	const menu = document.querySelector('menu'),
+		menuItems = menu.querySelectorAll('a[href*="#"]');
+
+	menuItems.forEach(item => {
+		item.addEventListener('click', e => {
+			e.preventDefault();
+
+			const blockId = item.getAttribute('href').substring(1);
+
+			document.getElementById(blockId).scrollIntoView({
+				behavior: 'smooth',
+				block: 'start'
+			});
+
+		});
+	});
 
 
 });
