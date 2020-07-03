@@ -19,8 +19,8 @@ const getHi = () => {
 	}
 	if (hours > 17 && hours <= 23) {
 		hello = 'Добрый вечер';
-  }
-  
+	}
+
 	const div = document.createElement('div');
 	div.innerHTML = hello;
 	document.body.append(div);
