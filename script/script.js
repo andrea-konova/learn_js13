@@ -201,12 +201,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		const addSlideDot = () => {
 			for (let i = 0; i < slide.length; i++) {
-				portfolioDots.prepend(dot.cloneNode());
+				const elem = document.createElement('li');
+				elem.classList.add('dot');
+				portfolioDots.appendChild(elem);
 
 			}
 		};
 
 		addSlideDot();
+		
+		const dot = document.querySelectorAll('.dot');
 
 		let currentSlide = 0,
 			interval;
