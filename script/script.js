@@ -22,7 +22,9 @@ window.addEventListener('DOMContentLoaded', () => {
 				return '0' + num;
 			}
 			return num;
-		};
+    };
+    
+    let intervalId;
 
 		const upDateClock = () => {
 			const timer = getTimeRemaining();
@@ -32,18 +34,16 @@ window.addEventListener('DOMContentLoaded', () => {
 			timerSeconds.textContent = addZero(timer.seconds);
 
 			if (timer.timeRemaining <= 0) {
-				clearInterval(upDateClock);
-				console.log('Очистка setInterval');
+				clearInterval(intervalId);
 				timerHours.textContent = '00';
 				timerMinutes.textContent = '00';
 				timerSeconds.textContent = '00';
 			}
 		};
 
-		setInterval(upDateClock, 1000);
-		console.log('Вызов setInterval');
+		intervalId = setInterval(upDateClock, 1000);
 	};
 
-	countTimer('3 jule 2020');
+	countTimer('4 jule 2020');
 
 });
