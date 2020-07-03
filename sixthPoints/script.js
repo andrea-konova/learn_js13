@@ -56,15 +56,21 @@ const getNewYearDays = () => {
 	const newDay = new Date('1 january 2021');
 	const msecondsToDay = 24 * 60 * 60 * 1000;
 	const days = Math.floor((newDay - date) / msecondsToDay);
+
 	let dayName;
-	const lastNum = days.toString().slice(-1);
-	if (lastNum == 1) {
-		dayName = 'день';
-	} else if (lastNum > 1 && lastNum < 4) {
-		dayName = 'дня';
-	} else {
-		dayName = 'дней';
-	}
+
+	const fixDayName = () => {
+		const lastNum = days.toString().slice(-1);
+		if (lastNum == 1) {
+			dayName = 'день';
+		} else if (lastNum > 1 && lastNum < 4) {
+			dayName = 'дня';
+		} else {
+			dayName = 'дней';
+		}
+	};
+
+	fixDayName();
 
 	const div = document.createElement('div');
 	div.innerHTML = 'До нового года осталось: ' + days + ' ' + dayName;
