@@ -22,9 +22,9 @@ window.addEventListener('DOMContentLoaded', () => {
 				return '0' + num;
 			}
 			return num;
-    };
-    
-    let intervalId;
+		};
+
+		let intervalId;
 
 		const upDateClock = () => {
 			const timer = getTimeRemaining();
