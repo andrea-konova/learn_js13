@@ -24,8 +24,6 @@ window.addEventListener('DOMContentLoaded', () => {
 			return num;
 		};
 
-    let intervalId;
-
 		const upDateClock = () => {
 			const timer = getTimeRemaining();
 
@@ -41,10 +39,10 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		};
 
-		intervalId = setInterval(upDateClock, 1000);
+		const intervalId = setInterval(upDateClock, 1000);
 	};
 
-	countTimer('4 jule 2020');
+	countTimer('5 jule 2020');
 
 	// menu
 	const toggleMenu = () => {
@@ -190,22 +188,23 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	};
 
-  tabs();
-  
-  // slider
+	tabs();
+
+	// slider
 	const slider = () => {
 		const slider = document.querySelector('.portfolio-content'),
-      slide = document.querySelectorAll('.portfolio-item'),
+			slide = document.querySelectorAll('.portfolio-item'),
 			portfolioDots = document.querySelector('.portfolio-dots');
 
-    slide.forEach(() => {
-      const elem = document.createElement('li');
-      elem.classList.add('dot');
-      portfolioDots.appendChild(elem);
-    });
 
-    const dot = document.querySelectorAll('.dot');
-    dot[0].classList.add('dot-active');
+		slide.forEach(() => {
+			const elem = document.createElement('li');
+			elem.classList.add('dot');
+			portfolioDots.appendChild(elem);
+		});
+
+		const dot = document.querySelectorAll('.dot');
+		dot[0].classList.add('dot-active');
 
 		let currentSlide = 0,
 			interval;
@@ -221,13 +220,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		const autoPlaySlide = () => {
 
 			prevSlide(slide, currentSlide, 'portfolio-item-active');
-			prevSlide(portfolioDots, currentSlide, 'dot-active');
+			prevSlide(dot, currentSlide, 'dot-active');
 			currentSlide++;
 			if (currentSlide >= slide.length) {
 				currentSlide = 0;
 			}
 			nextSlide(slide, currentSlide, 'portfolio-item-active');
-			nextSlide(portfolioDots, currentSlide, 'dot-active');
+			nextSlide(dot, currentSlide, 'dot-active');
 		};
 
 		const startSlide = (time = 3000) => {
