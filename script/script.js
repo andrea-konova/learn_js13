@@ -24,6 +24,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			return num;
 		};
 
+    let intervalId;
+
 		const upDateClock = () => {
 			const timer = getTimeRemaining();
 
@@ -32,17 +34,17 @@ window.addEventListener('DOMContentLoaded', () => {
 			timerSeconds.textContent = addZero(timer.seconds);
 
 			if (timer.timeRemaining <= 0) {
-				clearInterval(upDateClock);
+				clearInterval(intervalId);
 				timerHours.textContent = '00';
 				timerMinutes.textContent = '00';
 				timerSeconds.textContent = '00';
 			}
 		};
 
-		setInterval(upDateClock, 1000);
+		intervalId = setInterval(upDateClock, 1000);
 	};
 
-	countTimer('3 jule 2020');
+	countTimer('4 jule 2020');
 
 	// menu
 	const toggleMenu = () => {
@@ -188,25 +190,22 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	};
 
-	tabs();
-
+  tabs();
+  
+  // slider
 	const slider = () => {
 		const slider = document.querySelector('.portfolio-content'),
-			slide = document.querySelectorAll('.portfolio-item'),
+      slide = document.querySelectorAll('.portfolio-item'),
 			portfolioDots = document.querySelector('.portfolio-dots');
 
-		const	dot = document.createElement('li');
-		dot.classList.add('dot');
-		console.log(dot);
+    slide.forEach(() => {
+      const elem = document.createElement('li');
+      elem.classList.add('dot');
+      portfolioDots.appendChild(elem);
+    });
 
-		const addSlideDot = () => {
-			for (let i = 0; i < slide.length; i++) {
-				portfolioDots.prepend(dot.cloneNode());
-
-			}
-		};
-
-		addSlideDot();
+    const dot = document.querySelectorAll('.dot');
+    dot[0].classList.add('dot-active');
 
 		let currentSlide = 0,
 			interval;
@@ -222,13 +221,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		const autoPlaySlide = () => {
 
 			prevSlide(slide, currentSlide, 'portfolio-item-active');
-			prevSlide(dot, currentSlide, 'dot-active');
+			prevSlide(portfolioDots, currentSlide, 'dot-active');
 			currentSlide++;
 			if (currentSlide >= slide.length) {
 				currentSlide = 0;
 			}
 			nextSlide(slide, currentSlide, 'portfolio-item-active');
-			nextSlide(dot, currentSlide, 'dot-active');
+			nextSlide(portfolioDots, currentSlide, 'dot-active');
 		};
 
 		const startSlide = (time = 3000) => {
