@@ -335,6 +335,22 @@ window.addEventListener('DOMContentLoaded', () => {
 			const typeValue = calcType.options[calcType.selectedIndex].value,
 				squareValue = +calcSquare.value;
 
+			let count = 0,
+				idInterval;
+
+			const outNum = () => {
+				console.log(total);
+				idInterval = requestAnimationFrame(outNum);
+
+				count++;
+				if (count === total) {
+					cancelAnimationFrame(idInterval);
+				}
+
+				totalValue.textContent = count;
+
+			};
+
 			if (calcCount.value > 0) {
 				countValue += (calcCount.value - 1) / 10;
 			}
@@ -347,9 +363,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			if (typeValue && squareValue) {
 				total = price * typeValue * squareValue * countValue * dayValue;
+				idInterval = requestAnimationFrame(outNum);
 			}
 
-			totalValue.textContent = total;
 		};
 
 		calcBlock.addEventListener('change', event => {
