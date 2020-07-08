@@ -290,6 +290,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	};
 
-	slider();
+  slider();
+  
+   // change image
+  const changeImage = event => {
+  const card = event.target.closest('.col-md-4');
 
+  if (card) {
+    const commandPhoto = card.querySelector('.command__photo');
+
+    [commandPhoto.src, commandPhoto.dataset.img] = [commandPhoto.dataset.img, commandPhoto.src];
+
+    }
+  };
+  
+  const command = document.querySelector('.command');
+
+  command.addEventListener('mouseover', changeImage);
+  command.addEventListener('mouseout', changeImage);
+
+  // command.addEventListener('mouseover', event => {
+  //   const target = event.target;
+
+  // });
+  // command.addEventListener('mouseout', changeImage);
 });
