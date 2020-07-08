@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		setInterval(upDateClock, 1000);
 	};
 
-	countTimer('3 jule 2020');
+	countTimer('11 jule 2020');
 
 	// menu
 	const toggleMenu = () => {
@@ -298,15 +298,24 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		if (card) {
 			const photo = card.querySelector('.command__photo');
-
 			[photo.src, photo.dataset.img] = [photo.dataset.img, photo.src];
-
 		}
 	};
 
 	const command = document.querySelector('.command');
 
 	command.addEventListener('mouseover', changeImage);
-	command.addEventListener('mouseout', changeImage);
+  command.addEventListener('mouseout', changeImage);
+  
+  // calc input validation
+  const calcBlock = document.querySelector('.calc-block');
+
+  calcBlock.addEventListener('input', () => {
+    const target = event.target;
+
+    if (target.tagName === 'INPUT') {
+      target.value = target.value.replace(/\D/g, '');
+    }
+  });
 
 });
