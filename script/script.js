@@ -290,28 +290,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	};
 
-  slider();
-  
-   // change image
-  const changeImage = event => {
-  const card = event.target.closest('.col-md-4');
+	slider();
 
-  if (card) {
-    const commandPhoto = card.querySelector('.command__photo');
+	// change image
+	const changeImage = event => {
+		const card = event.target.closest('.col-md-4');
 
-    [commandPhoto.src, commandPhoto.dataset.img] = [commandPhoto.dataset.img, commandPhoto.src];
+		if (card) {
+			const photo = card.querySelector('.command__photo');
 
-    }
-  };
-  
-  const command = document.querySelector('.command');
+			[photo.src, photo.dataset.img] = [photo.dataset.img, photo.src];
 
-  command.addEventListener('mouseover', changeImage);
-  command.addEventListener('mouseout', changeImage);
+		}
+	};
 
-  // command.addEventListener('mouseover', event => {
-  //   const target = event.target;
+	const command = document.querySelector('.command');
 
-  // });
-  // command.addEventListener('mouseout', changeImage);
+	command.addEventListener('mouseover', changeImage);
+	command.addEventListener('mouseout', changeImage);
+
 });
