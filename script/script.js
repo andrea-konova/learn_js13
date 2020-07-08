@@ -294,8 +294,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// change image
 	const changeImage = event => {
+		const card = event.target.closest('.col-md-4');
 
-		if (event.target.dataset) {
+		if (card) {
 			[event.target.src, event.target.dataset.img] = [event.target.dataset.img, event.target.src];
 		}
 
