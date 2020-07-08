@@ -294,28 +294,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// change image
 	const changeImage = event => {
-		const card = event.target.closest('.col-md-4');
 
-		if (card) {
-			const photo = card.querySelector('.command__photo');
-			[photo.src, photo.dataset.img] = [photo.dataset.img, photo.src];
+		if (event.target.dataset) {
+			[event.target.src, event.target.dataset.img] = [event.target.dataset.img, event.target.src];
 		}
+
 	};
 
 	const command = document.querySelector('.command');
 
 	command.addEventListener('mouseover', changeImage);
-  command.addEventListener('mouseout', changeImage);
-  
-  // calc input validation
-  const calcBlock = document.querySelector('.calc-block');
+	command.addEventListener('mouseout', changeImage);
 
-  calcBlock.addEventListener('input', () => {
-    const target = event.target;
+	// calc input validation
+	const calcBlock = document.querySelector('.calc-block');
 
-    if (target.tagName === 'INPUT') {
-      target.value = target.value.replace(/\D/g, '');
-    }
-  });
+	calcBlock.addEventListener('input', () => {
+		const target = event.target;
+
+		if (target.tagName === 'INPUT') {
+			target.value = target.value.replace(/\D/g, '');
+		}
+	});
 
 });
