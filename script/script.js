@@ -342,7 +342,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				console.log(total);
 				idInterval = requestAnimationFrame(outNum);
 
-				count++;
+				count += 5;
 				if (count === total) {
 					cancelAnimationFrame(idInterval);
 				}
@@ -362,7 +362,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 
 			if (typeValue && squareValue) {
-				total = price * typeValue * squareValue * countValue * dayValue;
+				total = Math.floor(price * typeValue * squareValue * countValue * dayValue);
 				idInterval = requestAnimationFrame(outNum);
 			}
 
