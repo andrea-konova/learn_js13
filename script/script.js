@@ -339,7 +339,6 @@ window.addEventListener('DOMContentLoaded', () => {
 				idInterval;
 
 			const outNum = () => {
-				console.log(total);
 				idInterval = requestAnimationFrame(outNum);
 
 				count += 2;
