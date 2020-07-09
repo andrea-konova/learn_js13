@@ -342,7 +342,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				console.log(total);
 				idInterval = requestAnimationFrame(outNum);
 
-				count += 5;
+				count += 2;
 				if (count === total) {
 					cancelAnimationFrame(idInterval);
 				}
