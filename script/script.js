@@ -393,33 +393,42 @@ window.addEventListener('DOMContentLoaded', () => {
 		form.addEventListener('submit', event => {
 			event.preventDefault();
 			form.appendChild(statusMessage);
-
-			const request = new XMLHttpRequest();
-			request.addEventListener('readystatechange', () => {
-				statusMessage.textContent = loadMessage;
-
-				if (request.readyState !== 4) {
-					return;
-				}
-				if (request.status === 200) {
-					statusMessage.textContent = successMessage;
-				} else {
-					statusMessage.textContent = errorMessage;
-				}
-			});
-
-			request.open('POST', './server.php');
-			request.setRequestHeader('Content-Type', 'aplication/json');
+			statusMessage.textContent = loadMessage;
 			const formData = new FormData(form);
 			const body = {};
 
 			formData.forEach((val, key) => {
 				body[key] = val;
 			});
-			console.log(body);
 
-			request.send(JSON.stringify(body));
+			postDate(body,
+				() => {
+					statusMessage.textContent = successMessage;
+				},
+				error => {
+					statusMessage.textContent = errorMessage;
+					console.error(error);
+				});
 		});
+
+		const postDate = (body, outputDate, errorDate) => {
+			const request = new XMLHttpRequest();
+
+			request.addEventListener('readystatechange', () => {
+				if (request.readyState !== 4) {
+					return;
+				}
+				if (request.status === 200) {
+					outputDate();
+				} else {
+					errorDate(request.status);
+				}
+			});
+
+			request.open('POST', './server.php');
+			request.setRequestHeader('Content-Type', 'aplication/json');
+			request.send(JSON.stringify(body));
+		};
 
 	};
 
