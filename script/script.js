@@ -102,14 +102,21 @@ window.addEventListener('DOMContentLoaded', () => {
 		popUp.addEventListener('click', event => {
 			let target = event.target;
 
+			const form3 = document.getElementById('form3'),
+				modalMessage = document.querySelector('.main-form h3');
+
 			if (target.classList.contains('popup-close')) {
 				popUp.style.display = 'none';
+				form3.style.display = 'block';
+				modalMessage.textContent = 'Введите свои данные для связи с нами!';
 				return count = 0;
 			} else {
 				target = target.closest('.popup-content');
 
 				if (!target) {
 					popUp.style.display = 'none';
+					form3.style.display = 'block';
+					modalMessage.textContent = 'Введите свои данные для связи с нами!';
 					return count = 0;
 				}
 			}
@@ -385,7 +392,28 @@ window.addEventListener('DOMContentLoaded', () => {
 			loadMessage = 'Загрузка...',
 			successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-		const form = document.getElementById('form1');
+		const form = document.getElementById('form1'),
+			form2 = document.getElementById('form2'),
+			form3 = document.getElementById('form3');
+
+		const postDate = (body, outputDate, errorDate) => {
+			const request = new XMLHttpRequest();
+
+			request.addEventListener('readystatechange', () => {
+				if (request.readyState !== 4) {
+					return;
+				}
+				if (request.status === 200) {
+					outputDate();
+				} else {
+					errorDate(request.status);
+				}
+			});
+
+			request.open('POST', './server.php');
+			request.setRequestHeader('Content-Type', 'aplication/json');
+			request.send(JSON.stringify(body));
+		};
 
 		const statusMessage = document.createElement('div');
 		statusMessage.style.cssText = 'font-size: 2rem;';
@@ -411,24 +439,51 @@ window.addEventListener('DOMContentLoaded', () => {
 				});
 		});
 
-		const postDate = (body, outputDate, errorDate) => {
-			const request = new XMLHttpRequest();
+		form2.addEventListener('submit', event => {
+			event.preventDefault();
+			form2.appendChild(statusMessage);
+			statusMessage.textContent = loadMessage;
+			const formData = new FormData(form2);
+			const body = {};
 
-			request.addEventListener('readystatechange', () => {
-				if (request.readyState !== 4) {
-					return;
-				}
-				if (request.status === 200) {
-					outputDate();
-				} else {
-					errorDate(request.status);
-				}
+			formData.forEach((val, key) => {
+				body[key] = val;
 			});
 
-			request.open('POST', './server.php');
-			request.setRequestHeader('Content-Type', 'aplication/json');
-			request.send(JSON.stringify(body));
-		};
+			postDate(body,
+				() => {
+					statusMessage.textContent = successMessage;
+				},
+				error => {
+					statusMessage.textContent = errorMessage;
+					console.error(error);
+				});
+		});
+
+		form3.addEventListener('submit', event => {
+			const modalMessage = document.querySelector('.main-form h3');
+			console.log(modalMessage);
+
+			event.preventDefault();
+			form3.style.display = 'none';
+			modalMessage.textContent = loadMessage;
+			const formData = new FormData(form3);
+			const body = {};
+
+			formData.forEach((val, key) => {
+				body[key] = val;
+			});
+
+			postDate(body,
+				() => {
+					modalMessage.textContent = successMessage;
+				},
+				error => {
+					modalMessage.textContent = errorMessage;
+					console.error(error);
+				});
+
+		});
 
 	};
 
