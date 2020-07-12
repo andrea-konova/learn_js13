@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		setInterval(upDateClock, 1000);
 	};
 
-	countTimer('11 jule 2020');
+	countTimer('14 jule 2020');
 
 	// menu
 	const toggleMenu = () => {
@@ -377,6 +377,32 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	};
 
-	calc(100);
+  calc(100);
+  
+  // send-ajax-form
+  const sendForm = () => {
+    const errorMessage = 'Что-то пошло не так...',
+      loadMessage = 'Загрузка...',
+      successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
+    const form = document.getElementById('form1');
+   
+    const statusMessage = document.createElement('div');
+    statusMessage.style.cssText = 'font-size: 2rem;';
+    
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form.appendChild(statusMessage);
+
+      const request = XMLHttpRequest();
+
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'multipart/form-data');
+      
+
+    });
+
+  };
+
+  sendForm();
 });
