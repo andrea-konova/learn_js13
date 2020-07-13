@@ -394,7 +394,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		const form = document.getElementById('form1'),
 			form2 = document.getElementById('form2'),
-			form3 = document.getElementById('form3');
+      form3 = document.getElementById('form3'),
+      inputName = document.getElementById('form1-name'),
+      inputName2 = document.getElementById('form2-name'),
+      inputName3 = document.getElementById('form3-name'),
+      inputEmail = document.getElementById('form1-email'),
+      inputEmail2 = document.getElementById('form2-email'),
+      inputEmail3 = document.getElementById('form3-email'),
+      inputPhone = document.getElementById('form1-phone'),
+      inputPhone2 = document.getElementById('form2-phone'),
+      inputPhone3 = document.getElementById('form3-phone'),
+      inputMessage2 = document.getElementById('form2-message');
 
 		const postDate = (body, outputDate, errorDate) => {
 			const request = new XMLHttpRequest();
@@ -416,10 +426,25 @@ window.addEventListener('DOMContentLoaded', () => {
 		};
 
 		const statusMessage = document.createElement('div');
-		statusMessage.style.cssText = 'font-size: 2rem;';
+    statusMessage.style.cssText = 'font-size: 2rem;';
+    
+    form.addEventListener('input', event => {
+      const target = event.target;
+  
+      if (target.classList.contains('form-phone')) {
+        target.value = target.value.replace(/[^0-9+]/ig, '');
+      }
+
+      if (target.classList.contains('form-name')) {
+        target.value = target.value.replace(/^[?!,.а-яА-ЯёЁ0-9\s]+$/, '');
+      }
+    });
 
 		form.addEventListener('submit', event => {
-			event.preventDefault();
+      event.preventDefault();
+      inputName.value = '';
+      inputEmail.value = '';
+      inputPhone.value = '';
 			form.appendChild(statusMessage);
 			statusMessage.textContent = loadMessage;
 			const formData = new FormData(form);
@@ -440,7 +465,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 
 		form2.addEventListener('submit', event => {
-			event.preventDefault();
+      event.preventDefault();
+      inputName2.value = '';
+      inputEmail2.value = '';
+      inputPhone2.value = '';
+      inputMessage2.value = '';
 			form2.appendChild(statusMessage);
 			statusMessage.textContent = loadMessage;
 			const formData = new FormData(form2);
@@ -461,10 +490,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 
 		form3.addEventListener('submit', event => {
-			const modalMessage = document.querySelector('.main-form h3');
-			console.log(modalMessage);
+      event.preventDefault();
 
-			event.preventDefault();
+			const modalMessage = document.querySelector('.main-form h3');
+
+      inputName3.value = '';
+      inputEmail3.value = '';
+      inputPhone3.value = '';
 			form3.style.display = 'none';
 			modalMessage.textContent = loadMessage;
 			const formData = new FormData(form3);
