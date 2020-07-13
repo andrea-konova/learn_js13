@@ -340,9 +340,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			const outNum = () => {
 				idInterval = requestAnimationFrame(outNum);
+				count += 20;
 
-				count += 2;
-				if (count === total) {
+				if (count >= total) {
+					count -= (count % total);
 					cancelAnimationFrame(idInterval);
 				}
 
