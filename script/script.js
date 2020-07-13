@@ -394,17 +394,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		const form = document.getElementById('form1'),
 			form2 = document.getElementById('form2'),
-      form3 = document.getElementById('form3'),
-      inputName = document.getElementById('form1-name'),
-      inputName2 = document.getElementById('form2-name'),
-      inputName3 = document.getElementById('form3-name'),
-      inputEmail = document.getElementById('form1-email'),
-      inputEmail2 = document.getElementById('form2-email'),
-      inputEmail3 = document.getElementById('form3-email'),
-      inputPhone = document.getElementById('form1-phone'),
-      inputPhone2 = document.getElementById('form2-phone'),
-      inputPhone3 = document.getElementById('form3-phone'),
-      inputMessage2 = document.getElementById('form2-message');
+			form3 = document.getElementById('form3'),
+			inputName = document.getElementById('form1-name'),
+			inputName2 = document.getElementById('form2-name'),
+			inputName3 = document.getElementById('form3-name'),
+			inputEmail = document.getElementById('form1-email'),
+			inputEmail2 = document.getElementById('form2-email'),
+			inputEmail3 = document.getElementById('form3-email'),
+			inputPhone = document.getElementById('form1-phone'),
+			inputPhone2 = document.getElementById('form2-phone'),
+			inputPhone3 = document.getElementById('form3-phone'),
+			inputMessage2 = document.getElementById('form2-message');
 
 		const postDate = (body, outputDate, errorDate) => {
 			const request = new XMLHttpRequest();
@@ -426,25 +426,53 @@ window.addEventListener('DOMContentLoaded', () => {
 		};
 
 		const statusMessage = document.createElement('div');
-    statusMessage.style.cssText = 'font-size: 2rem;';
-    
-    form.addEventListener('input', event => {
-      const target = event.target;
-  
-      if (target.classList.contains('form-phone')) {
-        target.value = target.value.replace(/[^0-9+]/ig, '');
-      }
+		statusMessage.style.cssText = 'font-size: 2rem;';
 
-      if (target.classList.contains('form-name')) {
-        target.value = target.value.replace(/^[?!,.а-яА-ЯёЁ0-9\s]+$/, '');
-      }
-    });
+		form.addEventListener('input', event => {
+			const target = event.target;
+
+			if (target.classList.contains('form-phone')) {
+				target.value = target.value.replace(/[^+\d]/g, '');
+			}
+
+			if (target.classList.contains('form-name')) {
+				target.value = target.value.replace(/[^а-яё\s]/ig, '');
+			}
+		});
+
+		form2.addEventListener('input', event => {
+			const target = event.target;
+
+			if (target.matches('#form2-name')) {
+				target.value = target.value.replace(/[^а-яё\s]/ig, '');
+			}
+
+			if (target.matches('#form2-phone')) {
+				target.value = target.value.replace(/[^+\d]/g, '');
+			}
+
+			if (target.classList.contains('mess')) {
+				target.value = target.value.replace(/[^а-яё\s]/ig, '');
+			}
+		});
+
+		form3.addEventListener('input', event => {
+			const target = event.target;
+
+			if (target.classList.contains('form-phone')) {
+				target.value = target.value.replace(/[^+\d]/g, '');
+			}
+
+			if (target.classList.contains('form-name')) {
+				target.value = target.value.replace(/[^а-яё\s]/ig, '');
+			}
+		});
 
 		form.addEventListener('submit', event => {
-      event.preventDefault();
-      inputName.value = '';
-      inputEmail.value = '';
-      inputPhone.value = '';
+			event.preventDefault();
+			inputName.value = '';
+			inputEmail.value = '';
+			inputPhone.value = '';
 			form.appendChild(statusMessage);
 			statusMessage.textContent = loadMessage;
 			const formData = new FormData(form);
@@ -465,11 +493,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 
 		form2.addEventListener('submit', event => {
-      event.preventDefault();
-      inputName2.value = '';
-      inputEmail2.value = '';
-      inputPhone2.value = '';
-      inputMessage2.value = '';
+			event.preventDefault();
+			inputName2.value = '';
+			inputEmail2.value = '';
+			inputPhone2.value = '';
+			inputMessage2.value = '';
 			form2.appendChild(statusMessage);
 			statusMessage.textContent = loadMessage;
 			const formData = new FormData(form2);
@@ -490,13 +518,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 
 		form3.addEventListener('submit', event => {
-      event.preventDefault();
+			event.preventDefault();
 
 			const modalMessage = document.querySelector('.main-form h3');
 
-      inputName3.value = '';
-      inputEmail3.value = '';
-      inputPhone3.value = '';
+			inputName3.value = '';
+			inputEmail3.value = '';
+			inputPhone3.value = '';
 			form3.style.display = 'none';
 			modalMessage.textContent = loadMessage;
 			const formData = new FormData(form3);
