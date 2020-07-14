@@ -386,39 +386,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	calc(100);
 
-	// send-ajax-form
-	// const sendForm = () => {
-	// 	const errorMessage = 'Что-то пошло не так...',
-	// 		loadMessage = 'Загрузка...',
-	// 		successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
-
-
-
-	// form2.addEventListener('submit', event => {
-	// 	event.preventDefault();
-	// 	inputName2.value = '';
-	// 	inputEmail2.value = '';
-	// 	inputPhone2.value = '';
-	// 	inputMessage2.value = '';
-	// 	form2.appendChild(statusMessage);
-	// 	statusMessage.textContent = loadMessage;
-	// 	const formData = new FormData(form2);
-	// 	const body = {};
-
-	// 	formData.forEach((val, key) => {
-	// 		body[key] = val;
-	// 	});
-
-	// 	postDate(body,
-	// 		() => {
-	// 			statusMessage.textContent = successMessage;
-	// 		},
-	// 		error => {
-	// 			statusMessage.textContent = errorMessage;
-	// 			console.error(error);
-	// 		});
-	// });
-
 	// form3.addEventListener('submit', event => {
 	// 	event.preventDefault();
 
@@ -455,22 +422,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			loadMessage = 'Загрузка...',
 			successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-		const form = document.getElementById('form1'),
-			form2 = document.getElementById('form2'),
-			form3 = document.getElementById('form3'),
-			inputName = document.getElementById('form-name'),
-			inputName2 = document.getElementById('form2-name'),
-			inputName3 = document.getElementById('form3-name'),
-			inputEmail = document.getElementById('form1-email'),
-			inputEmail2 = document.getElementById('form2-email'),
-			inputEmail3 = document.getElementById('form3-email'),
-			inputPhone = document.getElementById('form1-phone'),
-			inputPhone2 = document.getElementById('form2-phone'),
-			inputPhone3 = document.getElementById('form3-phone'),
-			inputMessage2 = document.getElementById('form2-message');
-
 		const statusMessage = document.createElement('div');
-		statusMessage.style.cssText = 'font-size: 2rem;';
+    statusMessage.style.cssText = 'font-size: 2rem;';
+    statusMessage.style.color = '#ffffff';
 
 		const postDate = (body, outputData, errorData) => {
 			const request = new XMLHttpRequest();
@@ -490,8 +444,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			request.send(JSON.stringify(body));
 		};
 
-		form.addEventListener('submit', event => {
-			event.preventDefault();
+		const postForm = (form, inputName, inputEmail, inputPhone, inputMessage) => {
 			form.appendChild(statusMessage);
 			statusMessage.textContent = loadMessage;
 			const formData = new FormData(form);
@@ -509,6 +462,39 @@ window.addEventListener('DOMContentLoaded', () => {
 			inputName.value = '';
 			inputEmail.value = '';
 			inputPhone.value = '';
+			if (inputMessage) {
+				inputMessage.value = '';
+			}
+		};
+
+		document.addEventListener('submit', event => {
+			event.preventDefault();
+			const target = event.target;
+
+			if (target.matches('#form1')) {
+				const form = document.getElementById('form1'),
+					inputName = document.getElementById('form1-name'),
+					inputEmail = document.getElementById('form1-email'),
+					inputPhone = document.getElementById('form1-phone');
+				postForm(form, inputName, inputEmail, inputPhone);
+			}
+
+			if (target.matches('#form2')) {
+				const form = document.getElementById('form2'),
+					inputName = document.getElementById('form2-name'),
+					inputEmail = document.getElementById('form2-email'),
+					inputPhone = document.getElementById('form2-phone'),
+					inputMessage = document.getElementById('form2-message');
+				postForm(form, inputName, inputEmail, inputPhone, inputMessage);
+			}
+
+			if (target.matches('#form3')) {
+				const form = document.getElementById('form3'),
+					inputName = document.getElementById('form3-name'),
+					inputEmail = document.getElementById('form3-email'),
+					inputPhone = document.getElementById('form3-phone');
+				postForm(form, inputName, inputEmail, inputPhone);
+			}
 		});
 
 		document.addEventListener('input', event => {
