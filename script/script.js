@@ -481,7 +481,9 @@ window.addEventListener('DOMContentLoaded', () => {
 				target.value = target.value.replace(/[^+\d]/g, '');
 			}
 
-			if (target.classList.contains('form-name') || target.classList.contains('mess')) {
+			if (target.classList.contains('form-name') ||
+      target.classList.contains('top-form') ||
+      target.classList.contains('mess')) {
 				target.value = target.value.replace(/[^а-яё\s]/ig, '');
 			}
 		});
