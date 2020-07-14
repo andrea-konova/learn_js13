@@ -396,7 +396,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		statusMessage.style.cssText = 'font-size: 2rem;';
 		statusMessage.style.color = '#ffffff';
 
-		const hidestatusMessage = () => {
+		const hideStatusMessage = () => {
 			statusMessage.style.display = 'none';
 		};
 
@@ -429,11 +429,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			});
 			postDate(body, () => {
 				statusMessage.textContent = successMessage;
-				setTimeout(hidestatusMessage, 3000);
+				setTimeout(hideStatusMessage, 3000);
 			},
 			error => {
 				statusMessage.textContent = errorMessage;
-				setTimeout(hidestatusMessage, 3000);
+				setTimeout(hideStatusMessage, 3000);
 				console.error(error);
 			});
 			inputName.value = '';
