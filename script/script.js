@@ -418,7 +418,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			request.send(JSON.stringify(body));
 		};
 
-		const postForm = (form, inputName, inputEmail, inputPhone, inputMessage) => {
+		const postForm = target => {
+			const form = target;
 			form.appendChild(statusMessage);
 			statusMessage.style.display = 'block';
 			statusMessage.textContent = loadMessage;
@@ -436,42 +437,17 @@ window.addEventListener('DOMContentLoaded', () => {
 				setTimeout(hideStatusMessage, 3000);
 				console.error(error);
 			});
-			inputName.value = '';
-			inputEmail.value = '';
-			inputPhone.value = '';
-			if (inputMessage) {
-				inputMessage.value = '';
+			const inputs = form.querySelectorAll('input');
+			for (let index = 0; index < inputs.length; index++) {
+				inputs[index].value = '';
 			}
 		};
 
 		document.addEventListener('submit', event => {
 			event.preventDefault();
 			const target = event.target;
-
-			if (target.matches('#form1')) {
-				const form = document.getElementById('form1'),
-					inputName = document.getElementById('form1-name'),
-					inputEmail = document.getElementById('form1-email'),
-					inputPhone = document.getElementById('form1-phone');
-				postForm(form, inputName, inputEmail, inputPhone);
-			}
-
-			if (target.matches('#form2')) {
-				const form = document.getElementById('form2'),
-					inputName = document.getElementById('form2-name'),
-					inputEmail = document.getElementById('form2-email'),
-					inputPhone = document.getElementById('form2-phone'),
-					inputMessage = document.getElementById('form2-message');
-				postForm(form, inputName, inputEmail, inputPhone, inputMessage);
-			}
-
-			if (target.matches('#form3')) {
-				const form = document.getElementById('form3'),
-					inputName = document.getElementById('form3-name'),
-					inputEmail = document.getElementById('form3-email'),
-					inputPhone = document.getElementById('form3-phone');
-				postForm(form, inputName, inputEmail, inputPhone);
-			}
+			console.log(target);
+			postForm(target);
 		});
 
 		document.addEventListener('input', event => {
