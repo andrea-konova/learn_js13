@@ -386,36 +386,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	calc(100);
 
-	// form3.addEventListener('submit', event => {
-	// 	event.preventDefault();
-
-	// 	const modalMessage = document.querySelector('.main-form h3');
-
-	// 	inputName3.value = '';
-	// 	inputEmail3.value = '';
-	// 	inputPhone3.value = '';
-	// 	form3.style.display = 'none';
-	// 	modalMessage.textContent = loadMessage;
-	// 	const formData = new FormData(form3);
-	// 	const body = {};
-
-	// 	formData.forEach((val, key) => {
-	// 		body[key] = val;
-	// 	});
-
-	// 	postDate(body,
-	// 		() => {
-	// 			modalMessage.textContent = successMessage;
-	// 		},
-	// 		error => {
-	// 			modalMessage.textContent = errorMessage;
-	// 			console.error(error);
-	// 		});
-
-	// });
-
-	// sendForm();
-
 	// send-ajax-form
 	const sendForm = () => {
 		const errorMessage = 'Что-то пошло не так...',
@@ -423,8 +393,12 @@ window.addEventListener('DOMContentLoaded', () => {
 			successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
 		const statusMessage = document.createElement('div');
-    statusMessage.style.cssText = 'font-size: 2rem;';
-    statusMessage.style.color = '#ffffff';
+		statusMessage.style.cssText = 'font-size: 2rem;';
+		statusMessage.style.color = '#ffffff';
+
+		const hidestatusMessage = () => {
+			statusMessage.style.display = 'none';
+		};
 
 		const postDate = (body, outputData, errorData) => {
 			const request = new XMLHttpRequest();
@@ -446,6 +420,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		const postForm = (form, inputName, inputEmail, inputPhone, inputMessage) => {
 			form.appendChild(statusMessage);
+			statusMessage.style.display = 'block';
 			statusMessage.textContent = loadMessage;
 			const formData = new FormData(form);
 			const body = {};
@@ -454,9 +429,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			});
 			postDate(body, () => {
 				statusMessage.textContent = successMessage;
+				setTimeout(hidestatusMessage, 3000);
 			},
 			error => {
 				statusMessage.textContent = errorMessage;
+				setTimeout(hidestatusMessage, 3000);
 				console.error(error);
 			});
 			inputName.value = '';
