@@ -314,17 +314,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	command.addEventListener('mouseover', changeImage);
 	command.addEventListener('mouseout', changeImage);
 
-	// calc input validation
-	const calcBlock = document.querySelector('.calc-block');
-
-	calcBlock.addEventListener('input', event => {
-		const target = event.target;
-
-		if (target.tagName === 'INPUT') {
-			target.value = target.value.replace(/\D/g, '');
-		}
-	});
-
 	// calculator
 	const calc = (price = 100) => {
 		const calcBlock = document.querySelector('.calc-block'),
@@ -348,8 +337,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			const outNum = () => {
 				idInterval = requestAnimationFrame(outNum);
 
-				count += 2;
-				if (count === total) {
+				count += Math.round(total / 120);
+				if (count >= total) {
+					count = total;
 					cancelAnimationFrame(idInterval);
 				}
 
@@ -370,7 +360,15 @@ window.addEventListener('DOMContentLoaded', () => {
 			if (typeValue && squareValue) {
 				total = Math.floor(price * typeValue * squareValue * countValue * dayValue);
 				idInterval = requestAnimationFrame(outNum);
-			}
+      }
+      
+      calcBlock.addEventListener('input', event => {
+				const target = event.target;
+
+				if (target.tagName === 'INPUT' || target.tagName === 'SELECT') {
+					cancelAnimationFrame(idInterval);
+				}
+			});
 
 		};
 
@@ -380,8 +378,15 @@ window.addEventListener('DOMContentLoaded', () => {
 			if (target.matches('select') || target.matches('input')) {
 				countSum();
 			}
-
-		});
+    });
+    
+    calcBlock.addEventListener('input', event => {
+      const target = event.target;
+  
+      if (target.tagName === 'INPUT') {
+        target.value = target.value.replace(/\D/g, '');
+      }
+    });
 	};
 
 	calc(100);
