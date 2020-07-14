@@ -307,17 +307,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	command.addEventListener('mouseover', changeImage);
 	command.addEventListener('mouseout', changeImage);
 
-	// calc input validation
-	const calcBlock = document.querySelector('.calc-block');
-
-	calcBlock.addEventListener('input', event => {
-		const target = event.target;
-
-		if (target.tagName === 'INPUT') {
-			target.value = target.value.replace(/\D/g, '');
-		}
-	});
-
 	// calculator
 	const calc = (price = 100) => {
 		const calcBlock = document.querySelector('.calc-block'),
@@ -340,10 +329,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			const outNum = () => {
 				idInterval = requestAnimationFrame(outNum);
-				count += 20;
-
+				count += 50;
+				console.log(total);
 				if (count >= total) {
-					count -= (count % total);
+					count = total;
 					cancelAnimationFrame(idInterval);
 				}
 
@@ -366,6 +355,14 @@ window.addEventListener('DOMContentLoaded', () => {
 				idInterval = requestAnimationFrame(outNum);
 			}
 
+			calcBlock.addEventListener('input', event => {
+				const target = event.target;
+
+				if (target.tagName === 'INPUT' || target.tagName === 'SELECT') {
+					cancelAnimationFrame(idInterval);
+				}
+			});
+
 		};
 
 		calcBlock.addEventListener('change', event => {
@@ -375,6 +372,14 @@ window.addEventListener('DOMContentLoaded', () => {
 				countSum();
 			}
 
+		});
+
+		calcBlock.addEventListener('input', event => {
+			const target = event.target;
+
+			if (target.tagName === 'INPUT') {
+				target.value = target.value.replace(/\D/g, '');
+			}
 		});
 	};
 
