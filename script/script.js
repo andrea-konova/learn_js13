@@ -387,6 +387,69 @@ window.addEventListener('DOMContentLoaded', () => {
 	calc(100);
 
 	// send-ajax-form
+	// const sendForm = () => {
+	// 	const errorMessage = 'Что-то пошло не так...',
+	// 		loadMessage = 'Загрузка...',
+	// 		successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+
+
+	// form2.addEventListener('submit', event => {
+	// 	event.preventDefault();
+	// 	inputName2.value = '';
+	// 	inputEmail2.value = '';
+	// 	inputPhone2.value = '';
+	// 	inputMessage2.value = '';
+	// 	form2.appendChild(statusMessage);
+	// 	statusMessage.textContent = loadMessage;
+	// 	const formData = new FormData(form2);
+	// 	const body = {};
+
+	// 	formData.forEach((val, key) => {
+	// 		body[key] = val;
+	// 	});
+
+	// 	postDate(body,
+	// 		() => {
+	// 			statusMessage.textContent = successMessage;
+	// 		},
+	// 		error => {
+	// 			statusMessage.textContent = errorMessage;
+	// 			console.error(error);
+	// 		});
+	// });
+
+	// form3.addEventListener('submit', event => {
+	// 	event.preventDefault();
+
+	// 	const modalMessage = document.querySelector('.main-form h3');
+
+	// 	inputName3.value = '';
+	// 	inputEmail3.value = '';
+	// 	inputPhone3.value = '';
+	// 	form3.style.display = 'none';
+	// 	modalMessage.textContent = loadMessage;
+	// 	const formData = new FormData(form3);
+	// 	const body = {};
+
+	// 	formData.forEach((val, key) => {
+	// 		body[key] = val;
+	// 	});
+
+	// 	postDate(body,
+	// 		() => {
+	// 			modalMessage.textContent = successMessage;
+	// 		},
+	// 		error => {
+	// 			modalMessage.textContent = errorMessage;
+	// 			console.error(error);
+	// 		});
+
+	// });
+
+	// sendForm();
+
+	// send-ajax-form
 	const sendForm = () => {
 		const errorMessage = 'Что-то пошло не так...',
 			loadMessage = 'Загрузка...',
@@ -395,7 +458,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		const form = document.getElementById('form1'),
 			form2 = document.getElementById('form2'),
 			form3 = document.getElementById('form3'),
-			inputName = document.getElementById('form1-name'),
+			inputName = document.getElementById('form-name'),
 			inputName2 = document.getElementById('form2-name'),
 			inputName3 = document.getElementById('form3-name'),
 			inputEmail = document.getElementById('form1-email'),
@@ -406,17 +469,19 @@ window.addEventListener('DOMContentLoaded', () => {
 			inputPhone3 = document.getElementById('form3-phone'),
 			inputMessage2 = document.getElementById('form2-message');
 
-		const postDate = (body, outputDate, errorDate) => {
-			const request = new XMLHttpRequest();
+		const statusMessage = document.createElement('div');
+		statusMessage.style.cssText = 'font-size: 2rem;';
 
+		const postDate = (body, outputData, errorData) => {
+			const request = new XMLHttpRequest();
 			request.addEventListener('readystatechange', () => {
 				if (request.readyState !== 4) {
 					return;
 				}
 				if (request.status === 200) {
-					outputDate();
+					outputData();
 				} else {
-					errorDate(request.status);
+					errorData(request.status);
 				}
 			});
 
@@ -425,124 +490,37 @@ window.addEventListener('DOMContentLoaded', () => {
 			request.send(JSON.stringify(body));
 		};
 
-		const statusMessage = document.createElement('div');
-		statusMessage.style.cssText = 'font-size: 2rem;';
-
-		form.addEventListener('input', event => {
-			const target = event.target;
-
-			if (target.classList.contains('form-phone')) {
-				target.value = target.value.replace(/[^+\d]/g, '');
-			}
-
-			if (target.classList.contains('form-name')) {
-				target.value = target.value.replace(/[^а-яё\s]/ig, '');
-			}
-		});
-
-		form2.addEventListener('input', event => {
-			const target = event.target;
-
-			if (target.matches('#form2-name')) {
-				target.value = target.value.replace(/[^а-яё\s]/ig, '');
-			}
-
-			if (target.matches('#form2-phone')) {
-				target.value = target.value.replace(/[^+\d]/g, '');
-			}
-
-			if (target.classList.contains('mess')) {
-				target.value = target.value.replace(/[^а-яё\s]/ig, '');
-			}
-		});
-
-		form3.addEventListener('input', event => {
-			const target = event.target;
-
-			if (target.classList.contains('form-phone')) {
-				target.value = target.value.replace(/[^+\d]/g, '');
-			}
-
-			if (target.classList.contains('form-name')) {
-				target.value = target.value.replace(/[^а-яё\s]/ig, '');
-			}
-		});
-
 		form.addEventListener('submit', event => {
 			event.preventDefault();
-			inputName.value = '';
-			inputEmail.value = '';
-			inputPhone.value = '';
 			form.appendChild(statusMessage);
 			statusMessage.textContent = loadMessage;
 			const formData = new FormData(form);
 			const body = {};
-
 			formData.forEach((val, key) => {
 				body[key] = val;
 			});
-
-			postDate(body,
-				() => {
-					statusMessage.textContent = successMessage;
-				},
-				error => {
-					statusMessage.textContent = errorMessage;
-					console.error(error);
-				});
+			postDate(body, () => {
+				statusMessage.textContent = successMessage;
+			},
+			error => {
+				statusMessage.textContent = errorMessage;
+				console.error(error);
+			});
+			inputName.value = '';
+			inputEmail.value = '';
+			inputPhone.value = '';
 		});
 
-		form2.addEventListener('submit', event => {
-			event.preventDefault();
-			inputName2.value = '';
-			inputEmail2.value = '';
-			inputPhone2.value = '';
-			inputMessage2.value = '';
-			form2.appendChild(statusMessage);
-			statusMessage.textContent = loadMessage;
-			const formData = new FormData(form2);
-			const body = {};
+		document.addEventListener('input', event => {
+			const target = event.target;
 
-			formData.forEach((val, key) => {
-				body[key] = val;
-			});
+			if (target.classList.contains('form-phone')) {
+				target.value = target.value.replace(/[^+\d]/g, '');
+			}
 
-			postDate(body,
-				() => {
-					statusMessage.textContent = successMessage;
-				},
-				error => {
-					statusMessage.textContent = errorMessage;
-					console.error(error);
-				});
-		});
-
-		form3.addEventListener('submit', event => {
-			event.preventDefault();
-
-			const modalMessage = document.querySelector('.main-form h3');
-
-			inputName3.value = '';
-			inputEmail3.value = '';
-			inputPhone3.value = '';
-			form3.style.display = 'none';
-			modalMessage.textContent = loadMessage;
-			const formData = new FormData(form3);
-			const body = {};
-
-			formData.forEach((val, key) => {
-				body[key] = val;
-			});
-
-			postDate(body,
-				() => {
-					modalMessage.textContent = successMessage;
-				},
-				error => {
-					modalMessage.textContent = errorMessage;
-					console.error(error);
-				});
-
+			if (target.classList.contains('form-name') || target.classList.contains('mess')) {
+				target.value = target.value.replace(/[^а-яё\s]/ig, '');
+			}
 		});
 
 	};
