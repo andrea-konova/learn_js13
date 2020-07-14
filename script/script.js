@@ -360,9 +360,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			if (typeValue && squareValue) {
 				total = Math.floor(price * typeValue * squareValue * countValue * dayValue);
 				idInterval = requestAnimationFrame(outNum);
-      }
-      
-      calcBlock.addEventListener('input', event => {
+			}
+
+			calcBlock.addEventListener('input', event => {
 				const target = event.target;
 
 				if (target.tagName === 'INPUT' || target.tagName === 'SELECT') {
@@ -378,15 +378,15 @@ window.addEventListener('DOMContentLoaded', () => {
 			if (target.matches('select') || target.matches('input')) {
 				countSum();
 			}
-    });
-    
-    calcBlock.addEventListener('input', event => {
-      const target = event.target;
-  
-      if (target.tagName === 'INPUT') {
-        target.value = target.value.replace(/\D/g, '');
-      }
-    });
+		});
+
+		calcBlock.addEventListener('input', event => {
+			const target = event.target;
+
+			if (target.tagName === 'INPUT') {
+				target.value = target.value.replace(/\D/g, '');
+			}
+		});
 	};
 
 	calc(100);
