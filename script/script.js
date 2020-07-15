@@ -405,23 +405,23 @@ window.addEventListener('DOMContentLoaded', () => {
 			statusMessage.style.display = 'none';
 		};
 
-		const postDate = (body, outputData, errorData) => {
+		const postDate = body => new Promise((resolve, reject) => {
 			const request = new XMLHttpRequest();
 			request.addEventListener('readystatechange', () => {
 				if (request.readyState !== 4) {
 					return;
 				}
 				if (request.status === 200) {
-					outputData();
+					resolve();
 				} else {
-					errorData(request.status);
+					reject(request.status);
 				}
 			});
 
 			request.open('POST', './server.php');
 			request.setRequestHeader('Content-Type', 'aplication/json');
 			request.send(JSON.stringify(body));
-		};
+		});
 
 		const postForm = target => {
 			const form = target;
@@ -433,15 +433,17 @@ window.addEventListener('DOMContentLoaded', () => {
 			formData.forEach((val, key) => {
 				body[key] = val;
 			});
-			postDate(body, () => {
-				statusMessage.textContent = successMessage;
-				setTimeout(hideStatusMessage, 3000);
-			},
-			error => {
-				statusMessage.textContent = errorMessage;
-				setTimeout(hideStatusMessage, 3000);
-				console.error(error);
-			});
+			postDate(body)
+				.then(() => {
+					statusMessage.textContent = successMessage;
+					setTimeout(hideStatusMessage, 3000);
+				})
+				.catch(error => {
+					statusMessage.textContent = errorMessage;
+					setTimeout(hideStatusMessage, 3000);
+					console.error(error);
+				});
+
 			const inputs = form.querySelectorAll('input');
 			for (let index = 0; index < inputs.length; index++) {
 				inputs[index].value = '';
@@ -451,7 +453,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		document.addEventListener('submit', event => {
 			event.preventDefault();
 			const target = event.target;
-			console.log(target);
 			postForm(target);
 		});
 
