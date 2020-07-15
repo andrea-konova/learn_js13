@@ -405,22 +405,13 @@ window.addEventListener('DOMContentLoaded', () => {
 			statusMessage.style.display = 'none';
 		};
 
-		const postDate = body => new Promise((resolve, reject) => {
-			const request = new XMLHttpRequest();
-			request.addEventListener('readystatechange', () => {
-				if (request.readyState !== 4) {
-					return;
-				}
-				if (request.status === 200) {
-					resolve();
-				} else {
-					reject(request.status);
-				}
-			});
-
-			request.open('POST', './server.php');
-			request.setRequestHeader('Content-Type', 'aplication/json');
-			request.send(JSON.stringify(body));
+		const postDate = body => fetch('./server.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'aplication/json'
+			},
+			body: JSON.stringify(body),
+			credentials: 'include'
 		});
 
 		const postForm = target => {
@@ -434,7 +425,10 @@ window.addEventListener('DOMContentLoaded', () => {
 				body[key] = val;
 			});
 			postDate(body)
-				.then(() => {
+				.then(request => {
+					if (request.status !== 200) {
+						throw new Error('status network not 200');
+					}
 					statusMessage.textContent = successMessage;
 					setTimeout(hideStatusMessage, 3000);
 				})
