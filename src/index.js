@@ -2,13 +2,11 @@
 
 import "@babel/polyfill";
 import 'nodelist-foreach-polyfill';
-import elementClosest from 'element-closest';
-elementClosest(window);
 import "formdata-polyfill";
 import "es6-promise";
 import "fetch-polyfill";
-import "mdn-polyfills/Node.prototype.append";
-
+import elementClosest from 'element-closest';
+elementClosest(window);
 
 import countTimer from './modules/countTimer';
 import toggleMenu from './modules/toggleMenu';
@@ -21,7 +19,7 @@ import calc from './modules/calc';
 import sendForm from './modules/sendForm';
 
 // timer
-countTimer('17 jule 2020');
+countTimer('19 july 2020');
 // menu
 toggleMenu();
 // popup
