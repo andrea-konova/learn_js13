@@ -5,7 +5,6 @@ const pageScroll = () => {
 	menu.addEventListener('click', event => {
 		event.preventDefault();
 		const target = event.target;
-		console.log(target);
 
 		if (target.matches('a[href*="#"]')) {
 			const menuId = target.getAttribute('href').substring(1);
