@@ -20,7 +20,7 @@ import calc from './modules/calc';
 import sendForm from './modules/sendForm';
 
 // timer
-countTimer('19 july 2020');
+countTimer('22 july 2020');
 // menu
 toggleMenu();
 // popup
