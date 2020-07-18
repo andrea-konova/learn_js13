@@ -63,6 +63,10 @@ const sendForm = () => {
 			target.value = target.value.replace(/[^+\d]/g, '');
 		}
 
+		if (target.matches('.form-email')) {
+			target.value = target.value.replace(/[а-яА-Я]/g, '');
+		}
+
 		if (target.classList.contains('form-name') ||
     target.matches('#form2-name') ||
     target.classList.contains('mess')) {

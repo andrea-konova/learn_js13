@@ -1,7 +1,7 @@
 const togglePopUp = () => {
 	const popUp = document.querySelector('.popup'),
-		popUpBtn = document.querySelectorAll('.popup-btn'),
-		popUpContent = document.querySelector('.popup-content');
+		popUpContent = document.querySelector('.popup-content'),
+		serviceBlock = document.querySelector('.service');
 	let count = 0,
 		popUpInterval;
 
@@ -15,11 +15,14 @@ const togglePopUp = () => {
 		}
 	};
 
-	popUpBtn.forEach(elem => {
-		elem.addEventListener('click', () => {
+	serviceBlock.addEventListener('click', event => {
+		const target = event.target;
+
+		if (target.classList.contains('popup-btn')) {
 			popUp.style.display = 'block';
 			popUpInterval = requestAnimationFrame(popUpAnimate);
-		});
+		}
+
 	});
 
 	popUp.addEventListener('click', event => {

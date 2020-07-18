@@ -5,6 +5,7 @@ import 'nodelist-foreach-polyfill';
 import "formdata-polyfill";
 import "es6-promise";
 import "fetch-polyfill";
+import 'mdn-polyfills/Node.prototype.append';
 import elementClosest from 'element-closest';
 elementClosest(window);
 

@@ -1,22 +1,19 @@
 const pageScroll = () => {
-	const menu = document.querySelector('menu'),
-		menuItems = menu.querySelectorAll('a[href*="#"]'),
-		btnDown = document.querySelector('a[href*="#"]');
+	const btnDown = document.querySelector('a[href*="#"]');
 
-	menuItems.forEach(item => {
-		item.addEventListener('click', e => {
-			e.preventDefault();
+	document.addEventListener('click', event => {
+		event.preventDefault();
+		const target = event.target;
 
-			const menuId = item.getAttribute('href').substring(1);
-
+		if (target.matches('a[href*="#"]')) {
+			const menuId = target.getAttribute('href').substring(1);
 			if (menuId !== 'close') {
 				document.getElementById(menuId).scrollIntoView({
 					behavior: 'smooth',
 					block: 'start'
 				});
 			}
-
-		});
+		}
 	});
 
 	btnDown.addEventListener('click', e => {
