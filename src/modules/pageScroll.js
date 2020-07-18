@@ -1,12 +1,15 @@
 const pageScroll = () => {
-	const btnDown = document.querySelector('a[href*="#"]');
+	const btnDown = document.querySelector('a[href*="#"]'),
+		menu = document.querySelector('menu');
 
-	document.addEventListener('click', event => {
+	menu.addEventListener('click', event => {
 		event.preventDefault();
 		const target = event.target;
+		console.log(target);
 
 		if (target.matches('a[href*="#"]')) {
 			const menuId = target.getAttribute('href').substring(1);
+
 			if (menuId !== 'close') {
 				document.getElementById(menuId).scrollIntoView({
 					behavior: 'smooth',
@@ -14,6 +17,7 @@ const pageScroll = () => {
 				});
 			}
 		}
+
 	});
 
 	btnDown.addEventListener('click', e => {
