@@ -72,6 +72,10 @@ const sendForm = () => {
     target.classList.contains('mess')) {
 			target.value = target.value.replace(/[^а-яё\s]/ig, '');
 		}
+
+		if (target.classList.contains('mess')) {
+			target.value = target.value.replace(/[^а-яё\s][-.?!)(,:]/ig, '');
+		}
 	});
 
 };
