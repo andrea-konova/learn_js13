@@ -67,14 +67,12 @@ const sendForm = () => {
 			target.value = target.value.replace(/[а-яА-Я]/g, '');
 		}
 
-		if (target.classList.contains('form-name') ||
-    target.matches('#form2-name') ||
-    target.classList.contains('mess')) {
+		if (target.classList.contains('form-name') || target.matches('#form2-name')) {
 			target.value = target.value.replace(/[^а-яё\s]/ig, '');
 		}
 
 		if (target.classList.contains('mess')) {
-			target.value = target.value.replace(/[^,.;!?а-яА-Я_ -]/s, '');
+			target.value = target.value.replace(/[^,.;!?а-яА-Я -]/s, '');
 		}
 
 	});
